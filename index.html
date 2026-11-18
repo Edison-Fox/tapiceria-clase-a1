@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tapicería Clase A1 · Ayacucho</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:'Source Sans 3',system-ui,sans-serif;background:#F1F5F9;color:#0F172A}
+.f{font-family:'Oswald',Impact,sans-serif;letter-spacing:.02em}
+.sel{border-color:#D4AF37!important;box-shadow:0 0 0 2px #D4AF37;background:#fffbeb}
+.opt{min-height:48px}
+.bad{border-color:#dc2626!important;background:#fef2f2}
+.soc{display:flex;gap:8px;flex-wrap:wrap}
+.soc a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:6px;color:#fff;font-size:14px;font-weight:600;border:1px solid rgba(255,255,255,.3)}
+.ph{position:relative;background:#cbd5e1;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+</style>
+</head>
+<body>
+
+<header class="fixed top-0 inset-x-0 z-40 bg-[#0F172A] text-white shadow-lg">
+ <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+  <a href="#inicio" class="f text-lg lg:text-xl text-[#D4AF37] whitespace-nowrap">◆ TAPICERÍA CLASE A1</a>
+  <nav class="hidden lg:flex gap-5 text-sm items-center">
+   <a href="#inicio">Inicio</a><a href="#cotizador">Servicios</a><a href="#catalogo">Catálogo</a><a href="#galeria">Galería</a><a href="#videos">Videos</a>
+   <span class="text-xs text-slate-300 leading-tight">935 070 966<br>928 164 166</span>
+   <div class="soc"></div>
+   <a href="#cotizador" class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded font-semibold">Mi Proforma</a>
+  </nav>
+  <button onclick="$('mnav').classList.toggle('hidden')" class="lg:hidden text-2xl w-12 h-12" aria-label="Menú">☰</button>
+ </div>
+ <nav id="mnav" class="hidden lg:hidden bg-[#1E293B] px-4 pb-4 flex flex-col">
+  <div onclick="$('mnav').classList.add('hidden')" class="flex flex-col">
+   <a class="py-3" href="#inicio">Inicio</a><a class="py-3" href="#cotizador">Servicios</a><a class="py-3" href="#catalogo">Catálogo</a><a class="py-3" href="#galeria">Galería</a><a class="py-3" href="#videos">Videos</a><a class="py-3 text-emerald-400 font-semibold" href="#cotizador">Mi Proforma</a>
+  </div>
+  <div class="text-sm text-slate-300 my-2">Tel.: 935 070 966 / 928 164 166</div><div class="soc"></div>
+ </nav>
+</header>
+
+<section id="inicio" class="pt-24 lg:pt-32 bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] text-white">
+ <div class="max-w-5xl mx-auto px-4 pb-14 lg:pb-24">
+  <h1 class="f text-4xl lg:text-6xl leading-tight">Renueva el interior de tu vehículo en Ayacucho</h1>
+  <p class="mt-5 text-lg text-slate-300 max-w-2xl">Tapizado a medida para autos particulares, taxis, camionetas y transporte. Elige tus servicios, mira tu proforma al instante y confirma desde tu celular.</p>
+  <div class="mt-8 flex flex-col sm:flex-row gap-3">
+   <a href="#cotizador" class="bg-[#D4AF37] text-[#0F172A] font-bold text-center px-6 py-3.5 rounded">Cotizar mi vehículo ahora</a>
+   <a href="#galeria" class="border border-[#D4AF37] text-[#D4AF37] text-center px-6 py-3.5 rounded">Ver trabajos realizados</a>
+  </div>
+  <div class="soc mt-5"></div>
+  <p class="mt-4 text-sm text-slate-300">Av. Arenales N° 667 (Ref. Grifo Arenales) · Huamanga, Ayacucho · 935 070 966 / 928 164 166</p>
+ </div>
+</section>
+
+<section id="cotizador" class="max-w-7xl mx-auto px-4 py-10">
+ <h2 class="f text-2xl lg:text-3xl">Cotizador digital</h2>
+ <p id="demo" class="hidden text-sm bg-amber-100 text-amber-900 rounded p-2 mt-2">Sin conexión a Supabase: mostrando datos de ejemplo. Las proformas no se guardarán.</p>
+ <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-4">
+
+  <div class="lg:col-span-7 space-y-5 pb-44 lg:pb-0">
+   <div class="bg-white rounded-xl border p-4">
+    <h3 class="f text-lg mb-3">1. Elige tu marca y modelo</h3>
+    <div id="marcas" class="flex flex-wrap gap-2"></div>
+    <div id="modelos" class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4"></div>
+    <input id="anio" maxlength="4" inputmode="numeric" placeholder="Año (opcional, 1970-2027)" class="opt border rounded px-3 py-3.5 mt-4 w-full sm:w-64">
+   </div>
+   <div class="bg-white rounded-xl border p-4">
+    <h3 class="f text-lg mb-1">2. Elige los servicios</h3>
+    <p class="text-xs text-slate-500 mb-3">Marque uno o varios. Con 3 o más servicios: 8% de descuento por paquete.</p>
+    <div id="servs" class="flex flex-col gap-2"></div>
+   </div>
+   <div class="bg-white rounded-xl border p-4">
+    <h3 class="f text-lg mb-3">3. Seleccione material y calidad</h3>
+    <div id="mats" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
+    <p class="text-xs text-slate-500 mt-2">Los pisos usan automáticamente Piso Chispa / Vinil.</p>
+   </div>
+   <div class="bg-white rounded-xl border p-4">
+    <h3 class="f text-lg mb-3">4. Sus datos</h3>
+    <div class="grid sm:grid-cols-2 gap-3">
+     <input id="nombre" maxlength="60" placeholder="Nombre completo" class="opt border rounded px-3 py-3.5">
+     <input id="wsp" maxlength="9" type="tel" inputmode="numeric" placeholder="WhatsApp (9XXXXXXXX)" class="opt border rounded px-3 py-3.5">
+     <input id="color" maxlength="40" placeholder="Color preferido (ej. Rojo y negro)" class="opt border rounded px-3 py-3.5 sm:col-span-2">
+     <textarea id="obs" rows="2" maxlength="300" placeholder="Observaciones" class="border rounded px-3 py-3 sm:col-span-2"></textarea>
+    </div>
+   </div>
+  </div>
+
+  <div id="prev" class="hidden lg:block fixed lg:sticky inset-0 lg:inset-auto lg:top-20 lg:self-start z-50 lg:z-0 bg-slate-100 lg:bg-transparent overflow-auto p-3 lg:p-0 lg:col-span-5">
+   <button onclick="togglePrev()" class="lg:hidden mb-2 w-full py-3 bg-slate-700 text-white rounded">✕ Cerrar</button>
+   <div class="bg-white rounded-xl border shadow-lg overflow-hidden">
+    <div class="bg-[#0F172A] text-white p-4">
+     <div class="flex justify-between items-start gap-2">
+      <div><div class="f text-[#D4AF37] text-lg leading-tight">◆ TAPICERÍA "CLASE A1"</div><div class="text-[11px] text-slate-300">De: Ramos Gómez George · R.U.C. 10702209337</div></div>
+      <div class="text-right"><div class="f text-xs text-slate-300">NOTA DE PEDIDO / PROFORMA</div><b id="p-cod" class="text-[#D4AF37]">PROF-2026-XXXX</b></div>
+     </div>
+     <div class="text-[11px] text-slate-300 leading-snug mt-1">Av. Arenales N° 667 (Ref. Grifo Arenales), Huamanga, Ayacucho · Tel. 935 070 966 / 928 164 166</div>
+    </div>
+    <div class="p-4 text-sm space-y-1">
+     <div class="flex justify-between"><span><b>Señor(es):</b> <span id="p-nom">—</span></span><span id="p-fecha" class="text-xs"></span></div>
+     <div><b>WhatsApp:</b> <span id="p-wsp">—</span></div>
+     <div><b>Vehículo:</b> <span id="p-veh">—</span></div>
+     <table class="w-full mt-3 text-[11px] border">
+      <thead class="bg-[#0F172A] text-white"><tr><th class="p-1.5">N°</th><th class="p-1.5 text-left">DESCRIPCIÓN</th><th class="p-1.5">CANT.</th><th class="p-1.5 text-right">P. UNIT.</th><th class="p-1.5 text-right">IMPORTE</th></tr></thead>
+      <tbody id="p-rows"></tbody>
+     </table>
+     <div class="text-xs space-y-1 pt-2">
+      <div class="flex justify-between"><span>Subtotal</span><span id="p-sub">S/ 0.00</span></div>
+      <div id="p-dsc" class="hidden flex justify-between text-emerald-700 font-semibold"><span id="p-dsc-l">Descuento por paquete (-8%)</span><span id="p-dsc-v"></span></div>
+     </div>
+     <div class="flex justify-between items-center border-t pt-3 mt-2"><span class="f text-lg">TOTAL ESTIMADO</span><b id="p-t" class="f text-2xl">S/ 0.00</b></div>
+     <p class="text-[11px] text-slate-600 pt-2">Presupuesto referencial válido por 3 días calendario; luego caduca en el sistema. No válido como comprobante de pago. Sujeto a inspección física de esponjas, resortes y estructura del vehículo en el taller. <b>Válida hasta: <span id="p-v"></span></b></p>
+     <div class="flex justify-between text-[10px] text-slate-500 pt-5"><span class="border-t border-slate-400 px-4 pt-1">p. CLIENTE</span><span class="border-t border-slate-400 px-4 pt-1">p. TAPICERÍA "CLASE A1"</span></div>
+     <p class="text-[10px] text-slate-500 text-center">Gracias por su preferencia</p>
+    </div>
+    <div class="p-4 pt-0 space-y-2">
+     <button id="btnOk" onclick="confirmar()" class="w-full py-3.5 rounded bg-[#10B981] hover:bg-emerald-600 text-white font-bold">CONFIRMAR Y ENVIAR PROFORMA</button>
+     <div id="post" class="hidden space-y-2">
+      <button onclick="pdf()" class="w-full py-3.5 rounded bg-red-600 hover:bg-red-700 text-white font-semibold">Descargar Proforma en PDF</button>
+      <button onclick="wsp()" class="w-full py-3.5 rounded bg-green-600 hover:bg-green-700 text-white font-semibold">Enviar por WhatsApp</button>
+      <p class="text-xs bg-amber-50 border border-amber-300 text-amber-900 rounded p-2">Si WhatsApp no se abrió solo (algunos celulares bloquean ventanas emergentes), toque el botón verde para enviar la proforma al taller.</p>
+      <button onclick="location.reload()" class="w-full py-2.5 rounded border text-sm">Nueva cotización</button>
+     </div>
+     <div id="msg" class="text-sm text-center"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-white border-t shadow-2xl p-3">
+  <div class="flex justify-between items-center mb-2"><span class="text-xs font-semibold">RESUMEN DE COTIZACIÓN EN VIVO</span><b id="bar-t" class="f text-xl">S/ 0.00</b></div>
+  <button onclick="togglePrev()" class="w-full py-3.5 rounded bg-[#D4AF37] text-[#0F172A] font-bold">VER PROFORMA</button>
+ </div>
+</section>
+
+<section id="catalogo" class="bg-white py-12">
+ <div class="max-w-7xl mx-auto px-4">
+  <h2 class="f text-2xl lg:text-3xl mb-1">Catálogo de telas y materiales</h2>
+  <p class="text-slate-600 mb-5">Conozca los insumos MultiTop y otros con los que trabajamos antes de cotizar.</p>
+  <div id="cat-mats" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+ </div>
+</section>
+
+<section id="galeria" class="max-w-7xl mx-auto px-4 py-12">
+ <h2 class="f text-2xl lg:text-3xl mb-3">Trabajos realizados</h2>
+ <div id="filtros" class="flex gap-2 overflow-x-auto mb-4"></div>
+ <div id="gal" class="grid grid-cols-2 lg:grid-cols-4 gap-4"></div>
+ <h3 class="f text-xl mt-8 mb-3">Más trabajos en nuestras redes</h3>
+ <div class="scards grid sm:grid-cols-2 gap-4"></div>
+</section>
+
+<section id="videos" class="bg-[#0F172A] text-white py-12">
+ <div class="max-w-5xl mx-auto px-4">
+  <h2 class="f text-2xl lg:text-3xl mb-1">Así trabajamos</h2>
+  <p class="text-slate-300 mb-5">Proceso de confección, costura y acabado final.</p>
+  <div class="grid md:grid-cols-3 gap-4">
+   <video id="v1" controls playsinline preload="none" class="rounded-lg w-full md:col-span-2 aspect-video object-cover"><source src="assets/videos/video1.mp4" type="video/mp4"></video>
+   <video id="v2" controls playsinline preload="none" class="rounded-lg w-full aspect-[9/16] max-h-[420px] mx-auto object-cover"><source src="assets/videos/video2.mp4" type="video/mp4"></video>
+  </div>
+  <p class="text-xs text-slate-400 mt-2">Coloque sus archivos en assets/videos/video1.mp4 y video2.mp4.</p>
+  <div class="scards grid sm:grid-cols-2 gap-4 mt-6"></div>
+ </div>
+</section>
+
+<footer class="bg-[#1E293B] text-slate-300 py-8 text-sm">
+ <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-5">
+  <div><b class="text-[#D4AF37] f text-lg">TAPICERÍA "CLASE A1"</b><br>Propietario: Ramos Gómez George<br>R.U.C. 10702209337<br>Av. Arenales N° 667 (Ref. Grifo Arenales)<br>Huamanga, Ayacucho</div>
+  <div><b>Horario</b><br>Lun–Sáb 8:00 a.m. – 6:00 p.m.<br><b>Teléfonos</b><br>935 070 966 / 928 164 166</div>
+  <div><div class="soc"></div></div>
+ </div>
+</footer>
+
+<!-- Fino: asistente -->
+<div class="fixed right-3 bottom-[118px] lg:bottom-5 lg:right-5 z-[45] flex flex-col items-end">
+ <div id="chat" class="hidden mb-2 w-80 max-w-[calc(100vw-1.5rem)] bg-white rounded-xl shadow-2xl border overflow-hidden">
+  <div class="bg-[#0F172A] text-[#D4AF37] px-3 py-2 flex items-center gap-2">
+   <span class="fino w-10 h-10 rounded-full bg-[#1E293B] border border-[#D4AF37] overflow-hidden shrink-0"></span>
+   <span class="f text-sm flex-1 leading-tight">Fino · Asistente Elegante de Clase A1</span>
+   <button onclick="$('chat').classList.add('hidden')" aria-label="Cerrar" class="w-8 h-8">✕</button>
+  </div>
+  <div id="chat-log" class="p-3 text-sm max-h-48 overflow-auto space-y-2"><div class="bg-slate-100 rounded p-2">Guau 🐾 Soy Fino. Elija una pregunta o escriba una palabra clave.</div></div>
+  <div id="chat-faq" class="px-3 flex flex-wrap gap-1.5"></div>
+  <form onsubmit="return buscar(event)" class="p-3 flex gap-2">
+   <input id="chat-q" placeholder="Ej: horario, prana, cita" class="flex-1 border rounded px-3 py-2 text-sm min-w-0">
+   <button class="bg-[#D4AF37] rounded px-3 font-semibold">Buscar</button>
+  </form>
+  <a id="chat-wa" target="_blank" rel="noopener" class="block bg-green-600 text-white text-center py-3 font-semibold">Escribir por WhatsApp</a>
+ </div>
+ <button onclick="$('chat').classList.toggle('hidden')" class="flex flex-col items-center" aria-label="Consultas con Fino">
+  <span class="fino block w-16 h-16 rounded-full bg-[#0F172A] border-[3px] border-[#D4AF37] overflow-hidden shadow-xl"></span>
+  <span class="mt-1 bg-[#D4AF37] text-[#0F172A] text-[10px] font-bold rounded px-2 py-0.5">CONSULTAS CON FINO</span>
+ </button>
+</div>
+
+<script>
+/* ===== CONFIGURACIÓN ===== */
+const SB_URL='https://hghbotvtgkrtoogeqnmv.supabase.co';
+const SB_KEY='sb_publishable_g9jMZV706ZJL9v-mIyRBHg_iBAz6Kj0';
+const WA='51935070966',TEL='935 070 966 / 928 164 166',RUC='10702209337';
+const DIR='Av. Arenales N° 667 (Ref. Grifo Arenales) - Huamanga, Ayacucho';
+const TT='https://www.tiktok.com/@tapiceria.clase.a1?_r=1&_t=ZS-9BFIqdCiIPn',FB='https://www.facebook.com/share/19XHHduazg/';
+const DESC_MIN=3,DESC_PCT=8; // descuento por paquete: 3+ servicios = 8%
+const LEGAL='Presupuesto referencial válido por 3 días calendario; luego caduca en el sistema. No válido como comprobante de pago. Sujeto a inspección física de esponjas, resortes y estructura del vehículo en el taller.';
+const U=i=>`https://images.unsplash.com/photo-${i}?auto=format&fit=crop&w=600&q=70`;
+const P={sedan:'1503376780353-7e6692767b70',suv:'1519641471654-76ce0107ad1b',pick:'1559416523-140ddc3d238c',van:'1464219789935-c2d9d9aba644',volq:'1601584115197-04ecc0da31d7',i1:'1544829099-b9a0c07fad1a',i2:'1503736334956-4c8f8e92946d',i3:'1492144534655-ae79c964c9d7',i4:'1552519507-da3b142c6e3d',i5:'1533473359331-0135ef1b58bf'};
+const FOTOS=[['Toyota Hilux Vigo','Asientos','Prana',P.i1],['Toyota Avanza','Asientos','Tacto Cuero',P.i2],['Toyota Yaris','Techos','Aneka',P.i4],['Hyundai Accent','Asientos','Tacto Cuero',P.i1],['Kia Rio','Pisos','Piso Chispa',P.i3],['Toyota Rush','Asientos','Prana',P.i2],['Minivan Changan','Asientos','Aneka',P.van],['Hilux Vigo','Pisos','Piso Chispa',P.i5]].map(x=>({titulo:x[0],categoria:x[1],material_usado:x[2],imagen_url:U(x[3])}));
+const DEMO={
+ cats:[{id:1,nombre:'Auto',factor_tamanio:1},{id:2,nombre:'SUV',factor_tamanio:1.2},{id:3,nombre:'Pick-up',factor_tamanio:1.3},{id:4,nombre:'Minivan',factor_tamanio:1.5},{id:5,nombre:'Camión',factor_tamanio:2}],
+ marcas:['Toyota','Hyundai','Kia','Suzuki','Chevrolet','Changan','Mitsubishi Fuso','Volvo','Shacman','Mercedes-Benz'].map((n,i)=>({id:i+1,nombre:n})),
+ modelos:[[1,'Yaris',1],[1,'Avanza',4],[1,'Rush',2],[1,'Hilux Vigo',3],[2,'Accent',1],[2,'Elantra',1],[3,'Rio',1],[4,'Swift',1],[5,'Spark',1],[6,'Minivan',4],[7,'Canter',5],[8,'FH',5],[9,'X3000',5],[10,'Sprinter',4]].map((m,i)=>({id:i+1,marca_id:m[0],nombre:m[1],categoria_id:m[2]})),
+ servs:[{id:1,nombre:'Asientos Completos',precio_base_mano_obra:350,tiempo_estimado_dias:3},{id:2,nombre:'Piso',precio_base_mano_obra:200,tiempo_estimado_dias:2},{id:3,nombre:'Techo',precio_base_mano_obra:180,tiempo_estimado_dias:2},{id:4,nombre:'Puertas',precio_base_mano_obra:150,tiempo_estimado_dias:2}],
+ mats:[{id:1,nombre:'Aneka / Taneka (MultiTop)',precio_adicional_base:150,origen_calidad:'MultiTop Original',descripcion:'Cuerina automotriz lisa de alta resistencia e impermeable.'},
+  {id:2,nombre:'Prana Automotriz',precio_adicional_base:180,origen_calidad:'Importada Reforzada',descripcion:'Acabado texturizado grueso ideal para camionetas (Hilux Vigo) y uso diario.'},
+  {id:3,nombre:'Tacto Cuero / Cueromax Ultra',precio_adicional_base:250,origen_calidad:'MultiTop Premium',descripcion:'Textura suave tipo cuero original de fábrica.'},
+  {id:4,nombre:'Piso Chispa / Vinil Automotriz',precio_adicional_base:80,origen_calidad:'Tráfico Pesado',descripcion:'Material grueso antideslizante impermeable para pisos.'},
+  {id:5,nombre:'Tela Automotriz Drive / Tapimax',precio_adicional_base:120,origen_calidad:'MultiTop Automotriz I',descripcion:'Tela automotriz fresca y acolchada.'}]};
+
+/* ===== UTILIDADES ===== */
+const $=i=>document.getElementById(i);
+const sb=supabase.createClient(SB_URL,SB_KEY);
+const S={cats:[],marcas:[],modelos:[],servs:[],mats:[],gal:[],marca:null,modelo:null,sel:new Set(),mat:null,rec:null,snap:null,demo:false};
+const money=n=>'S/ '+Number(n).toFixed(2);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=d=>d.toLocaleDateString('es-PE');
+const tex=n=>{n=(n||'').toLowerCase();return n.includes('prana')?'#78350f,#1c1917':n.includes('chispa')||n.includes('vinil')?'#334155,#0f172a':n.includes('tela')||n.includes('drive')?'#6b7280,#1f2937':n.includes('tacto')||n.includes('cuero')?'#b45309,#451a03':'#1e3a8a,#0f172a'};
+const imgTag=(u,a,c='')=>u?`<img class="${c}" src="${esc(u)}" alt="${esc(a)}" loading="lazy" onerror="this.remove()">`:'';
+const matPhoto=n=>U(/chispa|vinil|piso/i.test(n)?P.i3:/prana/i.test(n)?P.i2:/tela|drive/i.test(n)?P.i4:P.i1);
+const modPhoto=(n,c)=>U(/hilux|pick|l200|d-?max/i.test(n+c)?P.pick:/avanza|rush|suv|tucson|creta|sportage/i.test(n+c)?P.suv:/van|combi|sprinter|hiace|changan/i.test(n+c)?P.van:/canter|fh|x3000|volq|cami|actros|fuso|shacman/i.test(n+c)?P.volq:P.sedan);
+const modImg=m=>{const c=S.cats.find(c=>c.id==m.categoria_id);return m.imagen_url||c?.imagen_url||modPhoto(m.nombre,c?.nombre||'')};
+const chispa=()=>S.mats.find(m=>/chispa|vinil/i.test(m.nombre));
+const emitida=()=>S.rec?.fecha_creacion?new Date(S.rec.fecha_creacion):new Date();
+const vence=()=>{const v=S.rec?.fecha_vencimiento;if(v)return new Date(String(v).length==10?v+'T12:00:00':v);const d=emitida();d.setDate(d.getDate()+3);return d};
+const veh=()=>{const mk=S.marcas.find(x=>x.id==S.modelo?.marca_id);return [mk?.nombre,S.modelo?.nombre,$('anio').value].filter(Boolean).join(' ')||'—'};
+
+document.querySelectorAll('.soc').forEach(e=>e.innerHTML=`<a href="${TT}" target="_blank" rel="noopener" style="background:#000">TikTok</a><a href="${FB}" target="_blank" rel="noopener" style="background:#1877F2">Facebook</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener" style="background:#16a34a">WhatsApp</a>`);
+const SC=(t,u,i)=>`<a href="${u}" target="_blank" rel="noopener" class="block rounded-xl overflow-hidden text-white" style="background:linear-gradient(rgba(15,23,42,.6),rgba(15,23,42,.88)),url('${U(i)}') center/cover,#1E293B"><div class="p-5 min-h-[140px]"><div class="f text-xl">${t} oficial de Clase A1</div><div class="text-sm text-slate-200">Mira videos y trabajos recientes del taller.</div><span class="inline-block mt-3 bg-[#D4AF37] text-[#0F172A] font-bold rounded px-4 py-2 text-sm">Abrir perfil</span></div></a>`;
+document.querySelectorAll('.scards').forEach(e=>e.innerHTML=SC('TikTok',TT,P.i1)+SC('Facebook',FB,P.i2));
+$('v1').poster=U(P.i1);$('v2').poster=U(P.i2);
+['v1','v2'].forEach(i=>$(i).style.background='linear-gradient(135deg,#1e3a8a,#0f172a)');
+
+const FINO=`<svg viewBox="0 0 100 100" style="width:100%;height:100%"><path d="M18 100Q20 72 50 70Q80 72 82 100Z" fill="#1E293B"/><path d="M42 71L50 86L58 71Z" fill="#fff"/><path d="M47 76H53L55 94L50 98L45 94Z" fill="#B91C1C"/><ellipse cx="27" cy="44" rx="9" ry="16" fill="#8B5E34" transform="rotate(12 27 44)"/><ellipse cx="73" cy="44" rx="9" ry="16" fill="#8B5E34" transform="rotate(-12 73 44)"/><ellipse cx="50" cy="48" rx="23" ry="22" fill="#D9A566"/><ellipse cx="50" cy="58" rx="12" ry="9" fill="#F3DDB8"/><ellipse cx="50" cy="53" rx="4.5" ry="3.2" fill="#111"/><path d="M50 56V61M44 62Q50 66 56 62" stroke="#111" stroke-width="1.5" fill="none"/><circle cx="41" cy="44" r="2.6" fill="#111"/><circle cx="59" cy="44" r="2.6" fill="#111"/><circle cx="59" cy="44" r="6.5" fill="none" stroke="#D4AF37" stroke-width="1.8"/><path d="M65 47Q70 60 66 72" stroke="#D4AF37" stroke-width="1" fill="none"/><rect x="30" y="24" width="40" height="4" rx="2" fill="#111827"/><rect x="35" y="8" width="30" height="18" rx="3" fill="#111827"/><rect x="35" y="19" width="30" height="4" fill="#D4AF37"/></svg>`;
+document.querySelectorAll('.fino').forEach(e=>e.innerHTML=FINO);
+
+/* ===== CARGA ===== */
+async function load(){
+ try{
+  const q=t=>sb.from(t).select('*');
+  const r=await Promise.all([q('categorias_vehiculo'),q('marcas').eq('activo',true),q('modelos_vehiculo').eq('activo',true),q('tipos_servicio').eq('activo',true),q('materiales_tapiceria').eq('activo',true)]);
+  if(r.some(x=>x.error||!x.data?.length))throw 0;
+  [S.cats,S.marcas,S.modelos,S.servs,S.mats]=r.map(x=>x.data);
+ }catch(e){Object.assign(S,{cats:DEMO.cats,marcas:DEMO.marcas,modelos:DEMO.modelos,servs:DEMO.servs,mats:DEMO.mats,demo:true});$('demo').classList.remove('hidden')}
+ try{const g=await sb.from('galeria_trabajos').select('*').eq('activo',true);S.gal=g.data||[]}catch(e){S.gal=[]}
+ if(!S.gal.length)S.gal=FOTOS;
+ renderAll();renderGal();
+}
+
+/* ===== RENDER ===== */
+function renderAll(){
+ $('marcas').innerHTML=S.marcas.map(m=>`<button onclick="pickMarca(${m.id})" class="opt px-4 border rounded-lg bg-white font-semibold ${S.marca==m.id?'sel':''}">${esc(m.nombre)}</button>`).join('');
+ const l=S.modelos.filter(m=>m.marca_id==S.marca);
+ $('modelos').innerHTML=!S.marca?'<p class="text-sm text-slate-500 col-span-full">Elija una marca para ver sus modelos.</p>':!l.length?'<p class="text-sm text-slate-500 col-span-full">No hay modelos activos para esta marca.</p>':l.map(m=>`<button onclick="pickModelo(${m.id})" class="border rounded-lg overflow-hidden bg-white text-left ${S.modelo?.id==m.id?'sel':''}"><div class="ph h-28"><span class="text-xs font-bold text-slate-500 px-2 text-center">${esc(m.nombre)}</span>${imgTag(modImg(m),m.nombre,'w-full h-28 object-cover')}</div><div class="p-2 text-sm font-semibold">${esc(m.nombre)}</div></button>`).join('');
+ $('servs').innerHTML=S.servs.map(s=>{const on=S.sel.has(s.id);return `<button onclick="toggleServ(${s.id})" class="opt flex items-center gap-3 border rounded-lg px-3 py-3 bg-white text-left ${on?'sel':''}"><span class="w-6 h-6 shrink-0 rounded border-2 border-[#0F172A] flex items-center justify-center ${on?'bg-[#0F172A] text-white':''}">${on?'✓':''}</span><span class="flex-1"><b>${esc(s.nombre)}</b>${s.tiempo_estimado_dias?`<span class="block text-xs text-slate-500">≈ ${s.tiempo_estimado_dias} día(s)</span>`:''}</span><span class="text-sm text-slate-500">desde ${money(s.precio_base_mano_obra)}</span></button>`}).join('');
+ $('mats').innerHTML=S.mats.map(x=>`<button onclick="pickMat(${x.id})" class="border rounded-lg overflow-hidden bg-white text-left ${S.mat?.id==x.id?'sel':''}"><div class="ph h-32" style="background:linear-gradient(135deg,${tex(x.nombre)})">${imgTag(x.imagen_url||matPhoto(x.nombre),x.nombre,'w-full h-32 object-cover')}</div><div class="p-2 text-sm font-semibold">${esc(x.nombre)}</div></button>`).join('');
+ $('cat-mats').innerHTML=S.mats.map(x=>`<div class="border rounded-xl overflow-hidden"><div class="ph h-32" style="background:linear-gradient(135deg,${tex(x.nombre)})">${imgTag(x.imagen_url||matPhoto(x.nombre),x.nombre,'w-full h-32 object-cover')}</div><div class="p-4"><h3 class="f text-lg">${esc(x.nombre)}</h3><div class="text-xs text-amber-700 font-semibold">${esc(x.origen_calidad)}</div><p class="text-sm text-slate-600 mt-1">${esc(x.descripcion)}</p></div></div>`).join('');
+ update();
+}
+let filtro='Todos',FIL=[];
+function renderGal(){
+ FIL=['Todos',...new Set(S.gal.map(g=>g.categoria).filter(Boolean))];
+ $('filtros').innerHTML=FIL.map((c,i)=>`<button onclick="filtro=FIL[${i}];renderGal()" class="opt px-4 rounded-full border whitespace-nowrap ${filtro==c?'bg-[#0F172A] text-white':'bg-white'}">${esc(c)}</button>`).join('');
+ $('gal').innerHTML=S.gal.filter(g=>filtro=='Todos'||g.categoria==filtro).map(g=>`<div class="bg-white rounded-xl border overflow-hidden"><div class="ph aspect-[4/3]" style="background:linear-gradient(135deg,${tex(g.material_usado)})">${imgTag(g.imagen_url,g.titulo,'w-full h-full object-cover')}</div><div class="p-3"><div class="font-semibold">${esc(g.titulo)}</div><div class="text-xs text-slate-500">${esc(g.categoria)} · ${esc(g.material_usado)}</div></div></div>`).join('');
+}
+function pickMarca(id){S.marca=id;if(S.modelo&&S.modelo.marca_id!=id)S.modelo=null;renderAll()}
+function pickModelo(id){S.modelo=S.modelos.find(m=>m.id==id);renderAll()}
+function toggleServ(id){S.sel.has(id)?S.sel.delete(id):S.sel.add(id);renderAll()}
+function pickMat(id){S.mat=S.mats.find(m=>m.id==id);renderAll()}
+
+/* ===== CÁLCULO SUMATIVO ===== */
+function calc(){
+ const f=+(S.cats.find(c=>c.id==S.modelo?.categoria_id)?.factor_tamanio||1),color=$('color').value.trim(),ch=chispa(),lines=[];
+ S.servs.filter(s=>S.sel.has(s.id)).forEach((s,i)=>{
+  const m=/piso/i.test(s.nombre)&&ch?ch:S.mat;
+  const imp=m?+((+s.precio_base_mano_obra+ +m.precio_adicional_base)*f).toFixed(2):null;
+  lines.push({n:i+1,s,m,imp,nom:s.nombre,desc:s.nombre+(m?' - '+m.nombre:'')+(color?' ('+color+')':'')});
+ });
+ const sub=+lines.reduce((a,l)=>a+(l.imp||0),0).toFixed(2);
+ const dsc=lines.length>=DESC_MIN?+(sub*DESC_PCT/100).toFixed(2):0;
+ return {lines,sub,dsc,tot:+(sub-dsc).toFixed(2),det:lines.map(l=>`${l.n}. ${l.nom} (S/ ${(l.imp||0).toFixed(0)})`).join(' + ')+(dsc?` - Desc. paquete ${DESC_PCT}% (S/ ${dsc.toFixed(2)})`:'')};
+}
+function update(){
+ const c=S.rec?S.snap:calc();
+ $('p-fecha').textContent=fmt(emitida());$('p-v').textContent=fmt(vence());
+ $('p-nom').textContent=$('nombre').value||'—';$('p-wsp').textContent=$('wsp').value||'—';$('p-veh').textContent=S.rec?S.snap.veh:veh();
+ $('p-rows').innerHTML=c.lines.length?c.lines.map(l=>`<tr class="border-t"><td class="p-1.5 text-center font-bold">${l.n}</td><td class="p-1.5">${esc(l.desc)}</td><td class="p-1.5 text-center">1</td><td class="p-1.5 text-right">${l.imp==null?'—':l.imp.toFixed(2)}</td><td class="p-1.5 text-right">${l.imp==null?'—':l.imp.toFixed(2)}</td></tr>`).join(''):'<tr><td colspan="5" class="p-3 text-center text-slate-500">Marque sus servicios y material</td></tr>';
+ $('p-sub').textContent=money(c.sub);
+ $('p-dsc').classList.toggle('hidden',!c.dsc);$('p-dsc').classList.toggle('flex',!!c.dsc);
+ $('p-dsc-l').textContent=`Descuento por paquete (-${DESC_PCT}%)`;$('p-dsc-v').textContent='- '+money(c.dsc);
+ $('p-t').textContent=$('bar-t').textContent=money(c.tot);
+}
+function togglePrev(){$('prev').classList.toggle('hidden')}
+
+/* ===== RESTRICCIONES ===== */
+const SAN={
+ wsp:v=>v.replace(/\D/g,'').replace(/^[^9]+/,'').slice(0,9),
+ nombre:v=>v.replace(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]/g,'').replace(/ {2,}/g,' '),
+ anio:v=>v.replace(/\D/g,'').slice(0,4),
+ color:v=>v,obs:v=>v};
+Object.keys(SAN).forEach(id=>$(id).oninput=e=>{e.target.value=SAN[id](e.target.value);e.target.classList.remove('bad');update()});
+function validar(){
+ const bad=(id,c)=>{$(id).classList.toggle('bad',c);return c},e=[];
+ if(bad('nombre',$('nombre').value.trim().length<3))e.push('Escriba su nombre (solo letras, mínimo 3).');
+ if(bad('wsp',!/^9\d{8}$/.test($('wsp').value)))e.push('El WhatsApp debe tener 9 dígitos y empezar con 9.');
+ if(!S.modelo)e.push('Elija su marca y modelo.');
+ const a=$('anio').value;if(bad('anio',a&&!(/^\d{4}$/.test(a)&&a>=1970&&a<=2027)))e.push('El año debe estar entre 1970 y 2027.');
+ const c=calc();
+ if(!c.lines.length)e.push('Marque al menos un servicio.');
+ else if(c.lines.some(l=>l.imp==null))e.push('Elija un material para sus servicios.');
+ return e;
+}
+
+/* ===== CONFIRMAR ===== */
+async function confirmar(){
+ const e=validar(),msg=$('msg');
+ if(e.length){msg.textContent=e[0];msg.className='text-sm text-center text-red-600';return}
+ const b=$('btnOk');b.disabled=true;b.textContent='Enviando…';
+ const c=calc(),first=c.lines[0],obsTxt=$('obs').value.trim();
+ const payload={nombre_cliente:$('nombre').value.trim(),telefono_whatsapp:$('wsp').value,modelo_vehiculo_id:parseInt(S.modelo.id),placa_vehiculo:null,anio_vehiculo:$('anio').value?parseInt($('anio').value):null,servicio_id:parseInt(first.s.id),material_id:parseInt((S.mat||first.m).id),color_preferido:$('color').value.trim()||null,observaciones_cliente:obsTxt||null};
+ try{
+  if(S.demo)throw new Error('demo');
+  let r=await sb.from('proformas').insert([{...payload,servicios_detalle:c.det}]).select();
+  if(r.error&&/servicios_detalle/i.test(r.error.message||'')){ // la columna aún no existe: se guarda el detalle en observaciones
+   payload.observaciones_cliente=[obsTxt,c.det].filter(Boolean).join(' | ');
+   r=await sb.from('proformas').insert([payload]).select();
+  }
+  if(r.error)throw r.error;
+  S.rec=r.data[0];
+  sb.from('proformas').update({precio_total_calculado:c.tot}).eq('id',S.rec.id).then(()=>{},()=>{}); // guarda el total sumado real (si RLS lo permite)
+ }catch(err){
+  b.disabled=false;b.textContent='CONFIRMAR Y ENVIAR PROFORMA';
+  msg.textContent=S.demo?'Modo demo: conecte Supabase para guardar.':'No se pudo guardar la proforma. Revise su conexión e intente de nuevo.';
+  msg.className='text-sm text-center text-red-600';return;
+ }
+ S.snap={...c,veh:veh(),color:$('color').value.trim(),obs:obsTxt};
+ $('p-cod').textContent=S.rec.codigo_proforma;
+ b.classList.add('hidden');$('post').classList.remove('hidden');
+ msg.textContent='¡Proforma '+S.rec.codigo_proforma+' confirmada!';msg.className='text-sm text-center text-emerald-700 font-semibold';
+ update();
+ wsp(); // aviso automático al dueño
+}
+function wsp(){
+ const r=S.rec,c=S.snap;
+ const t=`Hola George, nueva proforma desde la web:\n*${r.codigo_proforma}*\nCliente: ${r.nombre_cliente}\nCelular: ${r.telefono_whatsapp}\nVehículo: ${c.veh}\nServicios:\n${c.lines.map(l=>`${l.n}. ${l.desc} - ${money(l.imp)}`).join('\n')}${c.dsc?`\nDescuento paquete (-${DESC_PCT}%): -${money(c.dsc)}`:''}\n*TOTAL ESTIMADO: ${money(c.tot)}*\nVálida hasta: ${fmt(vence())}`;
+ window.open(`https://wa.me/${WA}?text=${encodeURIComponent(t)}`,'_blank');
+}
+
+/* ===== PDF ===== */
+function pdf(){
+ const r=S.rec,c=S.snap,d=new window.jspdf.jsPDF(),W=210;
+ d.setFillColor(15,23,42);d.rect(0,0,W,40,'F');
+ d.setTextColor(212,175,55);d.setFont('helvetica','bold');d.setFontSize(20);d.text('TAPICERÍA "CLASE A1"',14,14);
+ d.setFont('helvetica','normal');d.setFontSize(9);d.setTextColor(255,255,255);
+ d.text('De: Ramos Gómez George  |  R.U.C. '+RUC,14,21);d.text(DIR,14,26);d.text('Tel./WhatsApp: '+TEL,14,31);
+ d.setFont('helvetica','bold');d.setFontSize(10);d.text('NOTA DE PEDIDO / PROFORMA',W-14,10,{align:'right'});
+ d.setFontSize(13);d.setTextColor(212,175,55);d.text(r.codigo_proforma,W-14,17,{align:'right'});
+ d.setFont('helvetica','normal');d.setFontSize(9);d.setTextColor(255,255,255);d.text('Fecha: '+fmt(emitida()),W-14,24,{align:'right'});d.text('Válida hasta: '+fmt(vence()),W-14,29,{align:'right'});
+ d.setTextColor(0);d.setFontSize(10.5);let y=50;
+ [['Señor(es)',r.nombre_cliente],['WhatsApp',r.telefono_whatsapp],['Vehículo',c.veh],['Color preferido',c.color||'-'],['Observaciones',c.obs||'-']].forEach(([k,v])=>{d.setFont('helvetica','bold');d.text(k+':',14,y);d.setFont('helvetica','normal');d.text(d.splitTextToSize(String(v),135)[0],50,y);y+=7});
+ y+=3;d.setFillColor(15,23,42);d.rect(14,y,182,9,'F');d.setTextColor(255);d.setFont('helvetica','bold');d.setFontSize(9);
+ d.text('N°',19,y+6,{align:'center'});d.text('DESCRIPCIÓN',27,y+6);d.text('CANT.',133,y+6,{align:'center'});d.text('P. UNIT.',166,y+6,{align:'right'});d.text('IMPORTE S/',193,y+6,{align:'right'});
+ y+=9;d.setTextColor(0);d.setFont('helvetica','normal');d.setDrawColor(150);
+ c.lines.forEach(l=>{const t=d.splitTextToSize(l.desc,98),h=Math.max(10,t.length*5+4);if(y+h>240){d.addPage();y=20}
+  const p=l.imp.toFixed(2),ty=y+6.5;d.rect(14,y,182,h);d.setFont('helvetica','bold');d.text(String(l.n),19,ty,{align:'center'});d.setFont('helvetica','normal');d.text(t,27,ty);d.text('1',133,ty,{align:'center'});d.text(p,166,ty,{align:'right'});d.text(p,193,ty,{align:'right'});y+=h});
+ y+=6;d.setFontSize(10);
+ if(c.dsc){d.text('Subtotal:',150,y,{align:'right'});d.text(money(c.sub),193,y,{align:'right'});y+=6;d.setTextColor(5,150,105);d.text(`Descuento por paquete (-${DESC_PCT}%):`,150,y,{align:'right'});d.text('- '+money(c.dsc),193,y,{align:'right'});d.setTextColor(0);y+=6}
+ y+=2;d.setFillColor(16,185,129);d.rect(100,y,96,16,'F');d.setTextColor(255);d.setFont('helvetica','bold');d.setFontSize(9);d.text('TOTAL ESTIMADO',104,y+6.5);d.setFontSize(15);d.text(money(c.tot),192,y+11.5,{align:'right'});
+ y+=26;if(y>235){d.addPage();y=20}
+ d.setTextColor(60);d.setFont('helvetica','normal');d.setFontSize(9);const s=d.splitTextToSize(LEGAL,182);d.text(s,14,y);y+=s.length*5+4;
+ d.setTextColor(0);d.text('A CUENTA S/ ____________        SALDO S/ ____________',14,y);
+ y=Math.max(y+22,262);if(y>278){d.addPage();y=40}
+ d.setDrawColor(100);d.line(24,y,84,y);d.line(126,y,186,y);d.setFontSize(8.5);d.text('p. CLIENTE',54,y+5,{align:'center'});d.text('p. TAPICERÍA "CLASE A1"',156,y+5,{align:'center'});
+ d.setTextColor(120);d.text('Gracias por su preferencia',W/2,y+13,{align:'center'});
+ d.save(r.codigo_proforma+'.pdf');
+}
+
+/* ===== FINO (CHAT) ===== */
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const FAQ=[
+ {q:'Ubicación y horario',k:'ubicacion horario direccion donde hora atienden abren llegar arenales grifo',a:()=>'Estamos en Av. Arenales N° 667 (Ref. Grifo Arenales), Huamanga, Ayacucho. Horario referencial: Lun–Sáb 8:00 a.m. – 6:00 p.m. Confírmelo por WhatsApp.'},
+ {q:'Materiales',k:'material materiales aneka taneka multitop prana tacto cueromax cuero chispa vinil tela drive tapimax calidad',a:()=>'Trabajamos Aneka/Taneka MultiTop (cuerina lisa e impermeable), Prana (texturizado grueso para camionetas), Tacto Cuero Cueromax (suave tipo cuero), Piso Chispa (antideslizante para pisos) y Tela Drive/Tapimax.'},
+ {q:'Tiempo de entrega',k:'tiempo demora tarda dias cuanto entrega listo plazo',a:()=>{const l=S.servs.filter(s=>s.tiempo_estimado_dias).map(s=>`${s.nombre}: ≈ ${s.tiempo_estimado_dias} día(s)`);return (l.length?l.join('. ')+'. ':'')+'El plazo final se confirma tras la inspección del vehículo.'}},
+ {q:'Descuentos por paquete',k:'descuento paquete oferta promocion integral rebaja',a:()=>`Al marcar ${DESC_MIN} o más servicios, el cotizador aplica ${DESC_PCT}% de descuento por paquete automáticamente.`},
+ {q:'Cómo reservar cita',k:'reservar cita agendar reserva separar turno',a:()=>'Genere su proforma, envíela por WhatsApp y coordinamos su cita en el taller para la inspección. La proforma vale 3 días calendario.'}];
+function say(q,a){const l=$('chat-log');l.insertAdjacentHTML('beforeend',`<div class="text-right"><span class="inline-block bg-[#D4AF37]/30 rounded p-2">${esc(q)}</span></div><div class="bg-slate-100 rounded p-2">${esc(a)}</div>`);l.scrollTop=l.scrollHeight;$('chat-wa').href=`https://wa.me/${WA}?text=${encodeURIComponent('Hola, tengo una consulta: '+q)}`}
+$('chat-faq').innerHTML=FAQ.map((f,i)=>`<button onclick="say(FAQ[${i}].q,FAQ[${i}].a())" class="text-xs border rounded-full px-3 py-2 bg-white">${f.q}</button>`).join('');
+function buscar(ev){ev.preventDefault();const q=$('chat-q').value.trim();if(!q)return false;const w=norm(q).split(/\W+/).filter(x=>x.length>2);
+ const f=FAQ.find(f=>w.some(x=>norm(f.k).split(' ').some(k=>k.startsWith(x)||x.startsWith(k))));
+ say(q,f?f.a():'No encontré esa consulta. Escríbanos por WhatsApp y le respondemos.');$('chat-q').value='';return false}
+$('chat-wa').href=`https://wa.me/${WA}`;
+
+load();
+</script>
+</body>
+</html>

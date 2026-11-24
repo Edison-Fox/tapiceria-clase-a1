@@ -19,7 +19,51 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:#F1F5F9;color:#
 .soc a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:6px;color:#fff;font-size:14px;font-weight:600;border:1px solid rgba(255,255,255,.3)}
 .ph{position:relative;background:#cbd5e1;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tlw{container-type:inline-size}
+#talonario{min-width:380px}
+.tl{font-family:'Source Sans 3',Arial,sans-serif;font-size:11px;font-size:clamp(8px,2.2cqw,14px);line-height:1.25;color:#1e3a8a;--b:#1e3a8a;--hd:#dbeafe;background:#fff;padding:.6em;border:1px solid var(--b)}
+.tl .b{font-weight:700}.tl .sm{font-size:.82em}.tl .c{text-align:center}.tl .r{text-align:right}
+.tl-h{display:grid;grid-template-columns:1.3fr 1fr;gap:.7em;align-items:start}
+.tl-brand{display:flex;align-items:center;gap:.5em}
+.tl-name{font-family:Oswald,Impact,sans-serif;font-weight:700;font-size:2.6em;line-height:1;letter-spacing:.02em}
+.tl-sh svg{width:2.4em;height:auto;display:block}
+.tl-box{border:1.5px solid var(--b);border-radius:.5em;padding:.35em .5em;margin-top:.4em}
+.tl-date{width:100%;border-collapse:collapse;margin-top:.4em;text-align:center}
+.tl-date th,.tl-date td{border:1px solid var(--b);padding:.15em}.tl-date th{background:var(--hd);font-size:.8em}.tl-date td{color:#0f172a;font-weight:700}
+.tl .red{color:#dc2626;font-weight:700;font-size:1.15em}
+.tl-f{border-bottom:1px solid var(--b);margin-top:.55em;padding-bottom:.1em;min-height:1.5em}.tl-f .v{color:#0f172a;margin-left:.3em}
+.tl-f2{display:grid;grid-template-columns:1fr 1fr;gap:.8em}
+.tl-tw{position:relative;margin-top:.6em;border:1.5px solid var(--b)}
+.tl-wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.09;z-index:0}
+.tl-wm svg{width:46%;height:auto;max-height:95%}
+.tl-t{width:100%;border-collapse:collapse;position:relative;z-index:1}
+.tl-t th{background:var(--hd);border-bottom:1.5px solid var(--b);border-left:1px solid var(--b);padding:.25em;font-size:.85em;letter-spacing:.08em}
+.tl-t td{border-left:1px solid var(--b);border-bottom:1px solid var(--b);height:1.9em;padding:0 .35em;color:#0f172a;vertical-align:middle}
+.tl-t th:first-child,.tl-t td:first-child{border-left:0}.tl-t tr:last-child td{border-bottom:0}
+.tl-t .cn{text-align:center}
+.ci{display:inline-flex;width:1.5em;height:1.5em;border:1.5px solid #0f172a;border-radius:50%;align-items:center;justify-content:center;font-weight:700}
+.tl-ft{display:grid;grid-template-columns:1.2fr 1fr;gap:.8em;margin-top:.6em;align-items:start}
+.tl-box2{border:1.5px solid var(--b);border-radius:.4em;padding:.3em .5em;min-height:2.4em;margin-bottom:.4em;font-size:.9em;font-weight:700}
+.tl-total{border:2px solid var(--b);border-radius:.4em;padding:.3em .5em;display:flex;justify-content:space-between;align-items:center;background:var(--hd);font-weight:700}
+.tl-total span{font-size:1.5em;color:#0f172a}
+.tl-gr{text-align:right;font-weight:700;margin-top:.4em;font-size:.9em}
+.tl .legal{margin-top:.6em;color:#334155}
+.tl-sig{display:flex;justify-content:space-between;gap:2em;margin-top:2.4em}
+.tl-sig div{flex:1;border-top:1px solid var(--b);text-align:center;padding-top:.2em;font-size:.82em;font-weight:700}
+.tl.t80{font-size:10px}.tl.t80 .tl-h,.tl.t80 .tl-f2,.tl.t80 .tl-ft{grid-template-columns:1fr}.tl.t80 .tl-name{font-size:2em}
+.tl-in{width:100%;min-width:0;border:0;outline:0;background:transparent;font:inherit;color:#0f172a;padding:0;height:100%}
+.tl-in:focus{background:#fffbeb}.tl-in.r{text-align:right}
+#ticket-impresion{display:none}
+@media print{
+ html,body{background:#fff!important;margin:0!important;padding:0!important}
+ body>*:not(#ticket-impresion){display:none!important}
+ #ticket-impresion{display:block!important;background:#fff!important}
+ #ticket-impresion *{background:transparent!important;box-shadow:none!important}
+ #ticket-impresion .tl{--b:#000;--hd:transparent;border-color:#000}
+ #ticket-impresion *:not(.red){color:#000!important}
+}
 </style>
+<style id="print-css"></style>
 </head>
 <body>
 
@@ -69,13 +113,13 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:#F1F5F9;color:#
    </div>
    <div class="bg-white rounded-xl border p-4">
     <h3 class="f text-lg mb-1">2. Elige los servicios</h3>
-    <p class="text-xs text-slate-500 mb-3">Marque uno o varios. Con 3 o más servicios: 8% de descuento por paquete.</p>
+    <p class="text-xs text-slate-500 mb-3">Marque uno o varios y elija el material de cada uno.</p>
     <div id="servs" class="flex flex-col gap-2"></div>
    </div>
    <div class="bg-white rounded-xl border p-4">
     <h3 class="f text-lg mb-3">3. Seleccione material y calidad</h3>
+    <div id="mat-svs" class="flex flex-wrap gap-2 mb-3"></div>
     <div id="mats" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
-    <p class="text-xs text-slate-500 mt-2">Los pisos usan automáticamente Piso Chispa / Vinil.</p>
    </div>
    <div class="bg-white rounded-xl border p-4">
     <h3 class="f text-lg mb-3">4. Sus datos</h3>
@@ -90,36 +134,28 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:#F1F5F9;color:#
 
   <div id="prev" class="hidden lg:block fixed lg:sticky inset-0 lg:inset-auto lg:top-20 lg:self-start z-50 lg:z-0 bg-slate-100 lg:bg-transparent overflow-auto p-3 lg:p-0 lg:col-span-5">
    <button onclick="togglePrev()" class="lg:hidden mb-2 w-full py-3 bg-slate-700 text-white rounded">✕ Cerrar</button>
-   <div class="bg-white rounded-xl border shadow-lg overflow-hidden">
-    <div class="bg-[#0F172A] text-white p-4">
-     <div class="flex justify-between items-start gap-2">
-      <div><div class="f text-[#D4AF37] text-lg leading-tight">◆ TAPICERÍA "CLASE A1"</div><div class="text-[11px] text-slate-300">De: Ramos Gómez George · R.U.C. 10702209337</div></div>
-      <div class="text-right"><div class="f text-xs text-slate-300">NOTA DE PEDIDO / PROFORMA</div><b id="p-cod" class="text-[#D4AF37]">PROF-2026-XXXX</b></div>
-     </div>
-     <div class="text-[11px] text-slate-300 leading-snug mt-1">Av. Arenales N° 667 (Ref. Grifo Arenales), Huamanga, Ayacucho · Tel. 928 164 166</div>
+   <div class="relative bg-white rounded-xl border shadow-lg p-3 pt-12">
+    <button onclick="toggleCfg()" class="absolute top-2 right-2 z-20 text-xs border rounded-full px-3 py-2 bg-white shadow-sm">⚙️ Impresión</button>
+    <div id="cfg" class="hidden absolute top-12 right-2 z-30 w-72 max-w-[calc(100%-1rem)] bg-white border shadow-xl rounded-lg p-3 text-sm space-y-3">
+     <div class="font-semibold">Vista en miniatura</div>
+     <div id="mini" class="flex flex-col items-center bg-slate-100 rounded p-2 max-h-64 overflow-hidden"></div>
+     <label class="block"><span class="font-semibold">Formato de hoja</span>
+      <select id="paper" class="opt border rounded px-3 py-3 bg-white w-full mt-1"><option value="a4">Hoja A4 (Predeterminado)</option><option value="a5">Media Hoja A5 (Talonario)</option><option value="t80">Ticket Térmico (80 mm)</option></select></label>
+     <label class="flex items-center gap-3 opt"><input id="autoprint" type="checkbox" class="w-5 h-5"><span>Auto-imprimir al confirmar proforma</span></label>
+     <p class="text-xs text-slate-500">Se imprime en este dispositivo; no se envían datos a servidores de impresión.</p>
     </div>
-    <div class="p-4 text-sm space-y-1">
-     <div class="flex justify-between"><span><b>Señor(es):</b> <span id="p-nom">—</span></span><span id="p-fecha" class="text-xs"></span></div>
-     <div><b>WhatsApp:</b> <span id="p-wsp">—</span></div>
-     <div><b>Vehículo:</b> <span id="p-veh">—</span></div>
-     <table class="w-full mt-3 text-[11px] border">
-      <thead class="bg-[#0F172A] text-white"><tr><th class="p-1.5">N°</th><th class="p-1.5 text-left">DESCRIPCIÓN</th><th class="p-1.5">CANT.</th><th class="p-1.5 text-right">P. UNIT.</th><th class="p-1.5 text-right">IMPORTE</th></tr></thead>
-      <tbody id="p-rows"></tbody>
-     </table>
-     <div class="text-xs space-y-1 pt-2">
-      <div class="flex justify-between"><span>Subtotal</span><span id="p-sub">S/ 0.00</span></div>
-      <div id="p-dsc" class="hidden flex justify-between text-emerald-700 font-semibold"><span id="p-dsc-l">Descuento por paquete (-8%)</span><span id="p-dsc-v"></span></div>
+    <div class="overflow-x-auto"><div id="talonario" class="tlw"></div></div>
+    <div class="mt-3 space-y-2">
+     <div id="pre-btns" class="flex flex-col md:flex-row gap-2">
+      <button id="btnOk" onclick="confirmar()" class="w-full md:flex-1 py-3.5 rounded bg-[#10B981] hover:bg-emerald-600 text-white font-bold">CONFIRMAR Y ENVIAR PROFORMA</button>
+      <button onclick="printTicket()" class="w-full md:flex-1 py-3.5 rounded bg-slate-900 text-white font-semibold">🖨️ Imprimir vista previa</button>
      </div>
-     <div class="flex justify-between items-center border-t pt-3 mt-2"><span class="f text-lg">TOTAL ESTIMADO</span><b id="p-t" class="f text-2xl">S/ 0.00</b></div>
-     <p class="text-[11px] text-slate-600 pt-2">Presupuesto referencial válido por 3 días calendario; luego caduca en el sistema. No válido como comprobante de pago. Sujeto a inspección física de esponjas, resortes y estructura del vehículo en el taller. <b>Válida hasta: <span id="p-v"></span></b></p>
-     <div class="flex justify-between text-[10px] text-slate-500 pt-5"><span class="border-t border-slate-400 px-4 pt-1">p. CLIENTE</span><span class="border-t border-slate-400 px-4 pt-1">p. TAPICERÍA "CLASE A1"</span></div>
-     <p class="text-[10px] text-slate-500 text-center">Gracias por su preferencia</p>
-    </div>
-    <div class="p-4 pt-0 space-y-2">
-     <button id="btnOk" onclick="confirmar()" class="w-full py-3.5 rounded bg-[#10B981] hover:bg-emerald-600 text-white font-bold">CONFIRMAR Y ENVIAR PROFORMA</button>
      <div id="post" class="hidden space-y-2">
+      <div class="flex flex-col md:flex-row gap-2">
+       <button onclick="wsp()" class="w-full md:flex-1 py-3.5 rounded bg-green-600 hover:bg-green-700 text-white font-semibold">Enviar por WhatsApp</button>
+       <button onclick="printTicket()" class="w-full md:flex-1 py-3.5 rounded bg-slate-900 text-white font-semibold">🖨️ Imprimir Proforma</button>
+      </div>
       <button onclick="pdf()" class="w-full py-3.5 rounded bg-red-600 hover:bg-red-700 text-white font-semibold">Descargar Proforma en PDF</button>
-      <button onclick="wsp()" class="w-full py-3.5 rounded bg-green-600 hover:bg-green-700 text-white font-semibold">Enviar por WhatsApp</button>
       <p class="text-xs bg-amber-50 border border-amber-300 text-amber-900 rounded p-2">Si WhatsApp no se abrió solo (algunos celulares bloquean ventanas emergentes), toque el botón verde para enviar la proforma al taller.</p>
       <button onclick="location.reload()" class="w-full py-2.5 rounded border text-sm">Nueva cotización</button>
      </div>
@@ -172,13 +208,13 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:#F1F5F9;color:#
  </div>
 </footer>
 
+<div id="ticket-impresion" class="tlw"></div>
+
 <!-- Fino: asistente -->
 <div class="fixed right-3 bottom-[118px] lg:bottom-5 lg:right-5 z-[45] flex flex-col items-end">
  <div id="chat" class="hidden mb-2 w-80 max-w-[calc(100vw-1.5rem)] bg-white rounded-xl shadow-2xl border overflow-hidden">
   <div class="bg-[#0F172A] text-[#D4AF37] px-3 py-2 flex items-center gap-2">
-   <span class="w-10 h-10 rounded-full bg-[#1E293B] border border-[#D4AF37] overflow-hidden shrink-0">
-    <img src="https://hghbotvtgkrtoogeqnmv.supabase.co/storage/v1/object/public/vehiculos/fino-avatar.png" alt="Fino" class="w-full h-full object-cover">
-   </span>
+   <span class="w-10 h-10 rounded-full bg-[#1E293B] border border-[#D4AF37] overflow-hidden shrink-0"><img src="https://hghbotvtgkrtoogeqnmv.supabase.co/storage/v1/object/public/vehiculos/fino-avatar.png" alt="Fino" class="w-full h-full object-cover" onerror="this.parentNode.innerHTML=FINO"></span>
    <span class="f text-sm flex-1 leading-tight">Fino · Asistente Elegante de Clase A1</span>
    <button onclick="$('chat').classList.add('hidden')" aria-label="Cerrar" class="w-8 h-8">✕</button>
   </div>
@@ -191,9 +227,7 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:#F1F5F9;color:#
   <a id="chat-wa" target="_blank" rel="noopener" class="block bg-green-600 text-white text-center py-3 font-semibold">Escribir por WhatsApp</a>
  </div>
  <button onclick="$('chat').classList.toggle('hidden')" class="flex flex-col items-center" aria-label="Consultas con Fino">
-  <span class="block w-16 h-16 rounded-full bg-[#0F172A] border-[3px] border-[#D4AF37] overflow-hidden shadow-xl">
-   <img src="https://hghbotvtgkrtoogeqnmv.supabase.co/storage/v1/object/public/vehiculos/fino-avatar.png" alt="Fino" class="w-full h-full object-cover">
-  </span>
+  <span class="block w-16 h-16 rounded-full bg-[#0F172A] border-[3px] border-[#D4AF37] overflow-hidden shadow-xl"><img src="https://hghbotvtgkrtoogeqnmv.supabase.co/storage/v1/object/public/vehiculos/fino-avatar.png" alt="Fino" class="w-full h-full object-cover" onerror="this.parentNode.innerHTML=FINO"></span>
   <span class="mt-1 bg-[#D4AF37] text-[#0F172A] text-[10px] font-bold rounded px-2 py-0.5">CONSULTAS CON FINO</span>
  </button>
 </div>
@@ -205,8 +239,8 @@ const SB_KEY='sb_publishable_g9jMZV706ZJL9v-mIyRBHg_iBAz6Kj0';
 const WA='51928164166',TEL='928 164 166',RUC='10702209337';
 const DIR='Av. Arenales N° 667 (Ref. Grifo Arenales) - Huamanga, Ayacucho';
 const TT='https://www.tiktok.com/@tapiceria.clase.a1?_r=1&_t=ZS-9BFIqdCiIPn',FB='https://www.facebook.com/share/19XHHduazg/';
-const DESC_MIN=3,DESC_PCT=8; // descuento por paquete: 3+ servicios = 8%
 const LEGAL='Presupuesto referencial válido por 3 días calendario; luego caduca en el sistema. No válido como comprobante de pago. Sujeto a inspección física de esponjas, resortes y estructura del vehículo en el taller.';
+const RECOJO='RECOJO Y ALMACENAJE: Avisado el término, tiene 15 días calendario para recoger; luego se cobrará S/ 4.00/día por depósito. A los 3 meses (90 días) sin recojo, se considerará abandonado y podrá venderse para cubrir costos.';
 const U=i=>`https://images.unsplash.com/photo-${i}?auto=format&fit=crop&w=600&q=70`;
 const P={sedan:'1503376780353-7e6692767b70',suv:'1519641471654-76ce0107ad1b',pick:'1559416523-140ddc3d238c',van:'1464219789935-c2d9d9aba644',volq:'1601584115197-04ecc0da31d7',i1:'1544829099-b9a0c07fad1a',i2:'1503736334956-4c8f8e92946d',i3:'1492144534655-ae79c964c9d7',i4:'1552519507-da3b142c6e3d',i5:'1533473359331-0135ef1b58bf'};
 const FOTOS=[['Toyota Hilux Vigo','Asientos','Prana',P.i1],['Toyota Avanza','Asientos','Tacto Cuero',P.i2],['Toyota Yaris','Techos','Aneka',P.i4],['Hyundai Accent','Asientos','Tacto Cuero',P.i1],['Kia Rio','Pisos','Piso Chispa',P.i3],['Toyota Rush','Asientos','Prana',P.i2],['Minivan Changan','Asientos','Aneka',P.van],['Hilux Vigo','Pisos','Piso Chispa',P.i5]].map(x=>({titulo:x[0],categoria:x[1],material_usado:x[2],imagen_url:U(x[3])}));
@@ -224,8 +258,9 @@ const DEMO={
 /* ===== UTILIDADES ===== */
 const $=i=>document.getElementById(i);
 const sb=supabase.createClient(SB_URL,SB_KEY);
-const S={cats:[],marcas:[],modelos:[],servs:[],mats:[],gal:[],marca:null,modelo:null,sel:new Set(),mat:null,rec:null,snap:null,demo:false};
+const S={cats:[],marcas:[],modelos:[],servs:[],mats:[],gal:[],marca:null,modelo:null,sel:new Set(),sm:{},act:null,ex:{d:'',a:''},rec:null,snap:null,demo:false};
 const money=n=>'S/ '+Number(n).toFixed(2);
+const sg=n=>(n<0?'- ':'')+money(Math.abs(n)),sgn=n=>(n<0?'- ':'')+Math.abs(n).toFixed(2);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=d=>d.toLocaleDateString('es-PE');
 const tex=n=>{n=(n||'').toLowerCase();return n.includes('prana')?'#78350f,#1c1917':n.includes('chispa')||n.includes('vinil')?'#334155,#0f172a':n.includes('tela')||n.includes('drive')?'#6b7280,#1f2937':n.includes('tacto')||n.includes('cuero')?'#b45309,#451a03':'#1e3a8a,#0f172a'};
@@ -265,8 +300,11 @@ function renderAll(){
  $('marcas').innerHTML=S.marcas.map(m=>`<button onclick="pickMarca(${m.id})" class="opt px-4 border rounded-lg bg-white font-semibold ${S.marca==m.id?'sel':''}">${esc(m.nombre)}</button>`).join('');
  const l=S.modelos.filter(m=>m.marca_id==S.marca);
  $('modelos').innerHTML=!S.marca?'<p class="text-sm text-slate-500 col-span-full">Elija una marca para ver sus modelos.</p>':!l.length?'<p class="text-sm text-slate-500 col-span-full">No hay modelos activos para esta marca.</p>':l.map(m=>`<button onclick="pickModelo(${m.id})" class="border rounded-lg overflow-hidden bg-white text-left ${S.modelo?.id==m.id?'sel':''}"><div class="ph h-28"><span class="text-xs font-bold text-slate-500 px-2 text-center">${esc(m.nombre)}</span>${imgTag(modImg(m),m.nombre,'w-full h-28 object-cover')}</div><div class="p-2 text-sm font-semibold">${esc(m.nombre)}</div></button>`).join('');
- $('servs').innerHTML=S.servs.map(s=>{const on=S.sel.has(s.id);return `<button onclick="toggleServ(${s.id})" class="opt flex items-center gap-3 border rounded-lg px-3 py-3 bg-white text-left ${on?'sel':''}"><span class="w-6 h-6 shrink-0 rounded border-2 border-[#0F172A] flex items-center justify-center ${on?'bg-[#0F172A] text-white':''}">${on?'✓':''}</span><span class="flex-1"><b>${esc(s.nombre)}</b>${s.tiempo_estimado_dias?`<span class="block text-xs text-slate-500">≈ ${s.tiempo_estimado_dias} día(s)</span>`:''}</span><span class="text-sm text-slate-500">desde ${money(s.precio_base_mano_obra)}</span></button>`}).join('');
- $('mats').innerHTML=S.mats.map(x=>`<button onclick="pickMat(${x.id})" class="border rounded-lg overflow-hidden bg-white text-left ${S.mat?.id==x.id?'sel':''}"><div class="ph h-32" style="background:linear-gradient(135deg,${tex(x.nombre)})">${imgTag(x.imagen_url||matPhoto(x.nombre),x.nombre,'w-full h-32 object-cover')}</div><div class="p-2 text-sm font-semibold">${esc(x.nombre)}</div></button>`).join('');
+ const selS=S.servs.filter(s=>S.sel.has(s.id));
+ const opts=id=>'<option value="">Elija material…</option>'+S.mats.map(x=>`<option value="${x.id}" ${S.sm[id]==x.id?'selected':''}>${esc(x.nombre)}</option>`).join('');
+ $('servs').innerHTML=S.servs.map(s=>{const on=S.sel.has(s.id);return `<div class="border rounded-lg bg-white ${on?'sel':''}"><button onclick="toggleServ(${s.id})" class="opt flex items-center gap-3 px-3 py-3 w-full text-left"><span class="w-6 h-6 shrink-0 rounded border-2 border-[#0F172A] flex items-center justify-center ${on?'bg-[#0F172A] text-white':''}">${on?'✓':''}</span><span class="flex-1"><b>${esc(s.nombre)}</b>${s.tiempo_estimado_dias?`<span class="block text-xs text-slate-500">≈ ${s.tiempo_estimado_dias} día(s)</span>`:''}</span><span class="text-sm text-slate-500">desde ${money(s.precio_base_mano_obra)}</span></button>${on?`<div class="px-3 pb-3"><select onchange="setMat(${s.id},this.value)" class="opt border rounded px-3 py-3 bg-white w-full">${opts(s.id)}</select></div>`:''}</div>`}).join('');
+ $('mat-svs').innerHTML=selS.length?selS.map(s=>{const m=S.mats.find(x=>x.id==S.sm[s.id]);return `<button onclick="setAct(${s.id})" class="opt px-3 border rounded-lg text-sm bg-white text-left ${S.act==s.id?'sel':''}"><b>${esc(s.nombre)}</b>${m?`<span class="block text-xs text-emerald-700">✓ ${esc(m.nombre)}</span>`:'<span class="block text-xs text-slate-500">sin material</span>'}</button>`}).join(''):'<p class="text-sm text-slate-500">Marque primero un servicio en el paso 2.</p>';
+ $('mats').innerHTML=S.mats.map(x=>`<button onclick="pickMat(${x.id})" class="border rounded-lg overflow-hidden bg-white text-left ${S.act&&S.sm[S.act]==x.id?'sel':''}"><div class="ph h-32" style="background:linear-gradient(135deg,${tex(x.nombre)})">${imgTag(x.imagen_url||matPhoto(x.nombre),x.nombre,'w-full h-32 object-cover')}</div><div class="p-2 text-sm font-semibold">${esc(x.nombre)}</div></button>`).join('');
  $('cat-mats').innerHTML=S.mats.map(x=>`<div class="border rounded-xl overflow-hidden"><div class="ph h-32" style="background:linear-gradient(135deg,${tex(x.nombre)})">${imgTag(x.imagen_url||matPhoto(x.nombre),x.nombre,'w-full h-32 object-cover')}</div><div class="p-4"><h3 class="f text-lg">${esc(x.nombre)}</h3><div class="text-xs text-amber-700 font-semibold">${esc(x.origen_calidad)}</div><p class="text-sm text-slate-600 mt-1">${esc(x.descripcion)}</p></div></div>`).join('');
  update();
 }
@@ -278,30 +316,36 @@ function renderGal(){
 }
 function pickMarca(id){S.marca=id;if(S.modelo&&S.modelo.marca_id!=id)S.modelo=null;renderAll()}
 function pickModelo(id){S.modelo=S.modelos.find(m=>m.id==id);renderAll()}
-function toggleServ(id){S.sel.has(id)?S.sel.delete(id):S.sel.add(id);renderAll()}
-function pickMat(id){S.mat=S.mats.find(m=>m.id==id);renderAll()}
+function nextAct(){const o=S.servs.filter(s=>S.sel.has(s.id)).map(s=>s.id),n=o.find(i=>!S.sm[i]);S.act=n!=null?n:(o.includes(S.act)?S.act:(o.length?o[0]:null))}
+function toggleServ(id){
+ if(S.sel.has(id)){S.sel.delete(id);delete S.sm[id];if(S.act==id)nextAct()}
+ else{S.sel.add(id);const sv=S.servs.find(s=>s.id==id),ch=chispa();if(/piso/i.test(sv.nombre)&&ch)S.sm[id]=ch.id;if(S.sm[id])nextAct();else S.act=id}
+ renderAll();
+}
+function setAct(id){S.act=id;renderAll()}
+function setMat(id,v){if(v)S.sm[id]=parseInt(v);else delete S.sm[id];nextAct();renderAll()}
+function pickMat(id){if(S.act==null)return;S.sm[S.act]=id;nextAct();renderAll()}
 
 /* ===== CÁLCULO SUMATIVO ===== */
+function exVal(d=S.ex.d,a=S.ex.a){
+ a=(a||'').trim();const n=parseFloat(a);if(!a||isNaN(n))return 0;
+ const neg=a[0]=='-'||/descuento|dscto|rebaja/i.test(d||'');
+ return +(neg?-Math.abs(n):Math.abs(n)).toFixed(2);
+}
 function calc(){
- const f=+(S.cats.find(c=>c.id==S.modelo?.categoria_id)?.factor_tamanio||1),color=$('color').value.trim(),ch=chispa(),lines=[];
+ const f=+(S.cats.find(c=>c.id==S.modelo?.categoria_id)?.factor_tamanio||1),color=$('color').value.trim(),lines=[];
  S.servs.filter(s=>S.sel.has(s.id)).forEach((s,i)=>{
-  const m=/piso/i.test(s.nombre)&&ch?ch:S.mat;
+  const m=S.mats.find(x=>x.id==S.sm[s.id]);
   const imp=m?+((+s.precio_base_mano_obra+ +m.precio_adicional_base)*f).toFixed(2):null;
   lines.push({n:i+1,s,m,imp,nom:s.nombre,desc:s.nombre+(m?' - '+m.nombre:'')+(color?' ('+color+')':'')});
  });
- const sub=+lines.reduce((a,l)=>a+(l.imp||0),0).toFixed(2);
- const dsc=lines.length>=DESC_MIN?+(sub*DESC_PCT/100).toFixed(2):0;
- return {lines,sub,dsc,tot:+(sub-dsc).toFixed(2),det:lines.map(l=>`${l.n}. ${l.nom} (S/ ${(l.imp||0).toFixed(0)})`).join(' + ')+(dsc?` - Desc. paquete ${DESC_PCT}% (S/ ${dsc.toFixed(2)})`:'')};
+ const sub=+lines.reduce((a,l)=>a+(l.imp||0),0).toFixed(2),ex=exVal(),exd=S.ex.d.trim(),exa=S.ex.a;
+ return {lines,sub,ex,exd,exa,tot:Math.max(0,+(sub+ex).toFixed(2)),det:lines.map(l=>`${l.n}. ${l.nom}${l.m?' - '+l.m.nombre:''} (S/ ${(l.imp||0).toFixed(0)})`).join(' + ')+(exd||ex?` + ${exd||'Adicional'} (S/ ${ex.toFixed(2)})`:'')};
 }
 function update(){
  const c=S.rec?S.snap:calc();
- $('p-fecha').textContent=fmt(emitida());$('p-v').textContent=fmt(vence());
- $('p-nom').textContent=$('nombre').value||'—';$('p-wsp').textContent=$('wsp').value||'—';$('p-veh').textContent=S.rec?S.snap.veh:veh();
- $('p-rows').innerHTML=c.lines.length?c.lines.map(l=>`<tr class="border-t"><td class="p-1.5 text-center font-bold">${l.n}</td><td class="p-1.5">${esc(l.desc)}</td><td class="p-1.5 text-center">1</td><td class="p-1.5 text-right">${l.imp==null?'—':l.imp.toFixed(2)}</td><td class="p-1.5 text-right">${l.imp==null?'—':l.imp.toFixed(2)}</td></tr>`).join(''):'<tr><td colspan="5" class="p-3 text-center text-slate-500">Marque sus servicios y material</td></tr>';
- $('p-sub').textContent=money(c.sub);
- $('p-dsc').classList.toggle('hidden',!c.dsc);$('p-dsc').classList.toggle('flex',!!c.dsc);
- $('p-dsc-l').textContent=`Descuento por paquete (-${DESC_PCT}%)`;$('p-dsc-v').textContent='- '+money(c.dsc);
- $('p-t').textContent=$('bar-t').textContent=money(c.tot);
+ $('bar-t').textContent=money(c.tot);
+ renderTalonario();
 }
 function togglePrev(){$('prev').classList.toggle('hidden')}
 
@@ -320,17 +364,17 @@ function validar(){
  const a=$('anio').value;if(bad('anio',a&&!(/^\d{4}$/.test(a)&&a>=1970&&a<=2027)))e.push('El año debe estar entre 1970 y 2027.');
  const c=calc();
  if(!c.lines.length)e.push('Marque al menos un servicio.');
- else if(c.lines.some(l=>l.imp==null))e.push('Elija un material para sus servicios.');
+ else if(c.lines.some(l=>l.imp==null))e.push('Elija un material para cada servicio.');
  return e;
 }
 
 /* ===== CONFIRMAR ===== */
 async function confirmar(){
  const e=validar(),msg=$('msg');
- if(e.length){msg.textContent=e[0];msg.className='text-sm text-center text-red-600';return}
+ if(e.length){note(e[0],'text-red-600');return}
  const b=$('btnOk');b.disabled=true;b.textContent='Enviando…';
  const c=calc(),first=c.lines[0],obsTxt=$('obs').value.trim();
- const payload={nombre_cliente:$('nombre').value.trim(),telefono_whatsapp:$('wsp').value,modelo_vehiculo_id:parseInt(S.modelo.id),placa_vehiculo:null,anio_vehiculo:$('anio').value?parseInt($('anio').value):null,servicio_id:parseInt(first.s.id),material_id:parseInt((S.mat||first.m).id),color_preferido:$('color').value.trim()||null,observaciones_cliente:obsTxt||null};
+ const payload={nombre_cliente:$('nombre').value.trim(),telefono_whatsapp:$('wsp').value,modelo_vehiculo_id:parseInt(S.modelo.id),placa_vehiculo:null,anio_vehiculo:$('anio').value?parseInt($('anio').value):null,servicio_id:parseInt(first.s.id),material_id:parseInt(first.m.id),color_preferido:$('color').value.trim()||null,observaciones_cliente:obsTxt||null};
  try{
   if(S.demo)throw new Error('demo');
   let r=await sb.from('proformas').insert([{...payload,servicios_detalle:c.det}]).select();
@@ -343,48 +387,74 @@ async function confirmar(){
   sb.from('proformas').update({precio_total_calculado:c.tot}).eq('id',S.rec.id).then(()=>{},()=>{}); // guarda el total sumado real (si RLS lo permite)
  }catch(err){
   b.disabled=false;b.textContent='CONFIRMAR Y ENVIAR PROFORMA';
-  msg.textContent=S.demo?'Modo demo: conecte Supabase para guardar.':'No se pudo guardar la proforma. Revise su conexión e intente de nuevo.';
-  msg.className='text-sm text-center text-red-600';return;
+  note(S.demo?'Modo demo: conecte Supabase para guardar.':'No se pudo guardar la proforma. Revise su conexión e intente de nuevo.','text-red-600');return;
  }
  S.snap={...c,veh:veh(),color:$('color').value.trim(),obs:obsTxt};
- $('p-cod').textContent=S.rec.codigo_proforma;
- b.classList.add('hidden');$('post').classList.remove('hidden');
- msg.textContent='¡Proforma '+S.rec.codigo_proforma+' confirmada!';msg.className='text-sm text-center text-emerald-700 font-semibold';
+  $('pre-btns').classList.add('hidden');$('post').classList.remove('hidden');
+ note('¡Proforma '+S.rec.codigo_proforma+' confirmada!','text-emerald-700 font-semibold');
  update();
- wsp(); // aviso automático al dueño
+ if(LS.get('autoPrint')=='1'){ // Modo Taller: imprime y luego avisa al dueño
+  let d=0;const go=()=>{if(d++)return;wsp()};
+  addEventListener('afterprint',go,{once:true});
+  setTimeout(()=>{printTicket();setTimeout(go,4000)},300);
+ }else wsp(); // aviso automático al dueño
 }
 function wsp(){
  const r=S.rec,c=S.snap;
- const t=`Hola George, nueva proforma desde la web:\n*${r.codigo_proforma}*\nCliente: ${r.nombre_cliente}\nCelular: ${r.telefono_whatsapp}\nVehículo: ${c.veh}\nServicios:\n${c.lines.map(l=>`${l.n}. ${l.desc} - ${money(l.imp)}`).join('\n')}${c.dsc?`\nDescuento paquete (-${DESC_PCT}%): -${money(c.dsc)}`:''}\n*TOTAL ESTIMADO: ${money(c.tot)}*\nVálida hasta: ${fmt(vence())}`;
+ const t=`Hola George, nueva proforma desde la web:\n*${r.codigo_proforma}*\nCliente: ${r.nombre_cliente}\nCelular: ${r.telefono_whatsapp}\nVehículo: ${c.veh}\nServicios:\n${c.lines.map(l=>`${l.n}. ${l.desc} - ${money(l.imp)}`).join('\n')}${(c.exd||c.ex)?`\n${c.exd||'Adicional'}: ${sg(c.ex)}`:''}\n*TOTAL ESTIMADO: ${money(c.tot)}*\nVálida hasta: ${fmt(vence())}`;
  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(t)}`,'_blank');
 }
 
-/* ===== PDF ===== */
+/* ===== PDF (talonario A4) ===== */
 function pdf(){
- const r=S.rec,c=S.snap,d=new window.jspdf.jsPDF(),W=210;
- d.setFillColor(15,23,42);d.rect(0,0,W,40,'F');
- d.setTextColor(212,175,55);d.setFont('helvetica','bold');d.setFontSize(20);d.text('TAPICERÍA "CLASE A1"',14,14);
- d.setFont('helvetica','normal');d.setFontSize(9);d.setTextColor(255,255,255);
- d.text('De: Ramos Gómez George  |  R.U.C. '+RUC,14,21);d.text(DIR,14,26);d.text('Tel./WhatsApp: '+TEL,14,31);
- d.setFont('helvetica','bold');d.setFontSize(10);d.text('NOTA DE PEDIDO / PROFORMA',W-14,10,{align:'right'});
- d.setFontSize(13);d.setTextColor(212,175,55);d.text(r.codigo_proforma,W-14,17,{align:'right'});
- d.setFont('helvetica','normal');d.setFontSize(9);d.setTextColor(255,255,255);d.text('Fecha: '+fmt(emitida()),W-14,24,{align:'right'});d.text('Válida hasta: '+fmt(vence()),W-14,29,{align:'right'});
- d.setTextColor(0);d.setFontSize(10.5);let y=50;
- [['Señor(es)',r.nombre_cliente],['WhatsApp',r.telefono_whatsapp],['Vehículo',c.veh],['Color preferido',c.color||'-'],['Observaciones',c.obs||'-']].forEach(([k,v])=>{d.setFont('helvetica','bold');d.text(k+':',14,y);d.setFont('helvetica','normal');d.text(d.splitTextToSize(String(v),135)[0],50,y);y+=7});
- y+=3;d.setFillColor(15,23,42);d.rect(14,y,182,9,'F');d.setTextColor(255);d.setFont('helvetica','bold');d.setFontSize(9);
- d.text('N°',19,y+6,{align:'center'});d.text('DESCRIPCIÓN',27,y+6);d.text('CANT.',133,y+6,{align:'center'});d.text('P. UNIT.',166,y+6,{align:'right'});d.text('IMPORTE S/',193,y+6,{align:'right'});
- y+=9;d.setTextColor(0);d.setFont('helvetica','normal');d.setDrawColor(150);
- c.lines.forEach(l=>{const t=d.splitTextToSize(l.desc,98),h=Math.max(10,t.length*5+4);if(y+h>240){d.addPage();y=20}
-  const p=l.imp.toFixed(2),ty=y+6.5;d.rect(14,y,182,h);d.setFont('helvetica','bold');d.text(String(l.n),19,ty,{align:'center'});d.setFont('helvetica','normal');d.text(t,27,ty);d.text('1',133,ty,{align:'center'});d.text(p,166,ty,{align:'right'});d.text(p,193,ty,{align:'right'});y+=h});
- y+=6;d.setFontSize(10);
- if(c.dsc){d.text('Subtotal:',150,y,{align:'right'});d.text(money(c.sub),193,y,{align:'right'});y+=6;d.setTextColor(5,150,105);d.text(`Descuento por paquete (-${DESC_PCT}%):`,150,y,{align:'right'});d.text('- '+money(c.dsc),193,y,{align:'right'});d.setTextColor(0);y+=6}
- y+=2;d.setFillColor(16,185,129);d.rect(100,y,96,16,'F');d.setTextColor(255);d.setFont('helvetica','bold');d.setFontSize(9);d.text('TOTAL ESTIMADO',104,y+6.5);d.setFontSize(15);d.text(money(c.tot),192,y+11.5,{align:'right'});
- y+=26;if(y>235){d.addPage();y=20}
- d.setTextColor(60);d.setFont('helvetica','normal');d.setFontSize(9);const s=d.splitTextToSize(LEGAL,182);d.text(s,14,y);y+=s.length*5+4;
- d.setTextColor(0);d.text('A CUENTA S/ ____________        SALDO S/ ____________',14,y);
- y=Math.max(y+22,262);if(y>278){d.addPage();y=40}
- d.setDrawColor(100);d.line(24,y,84,y);d.line(126,y,186,y);d.setFontSize(8.5);d.text('p. CLIENTE',54,y+5,{align:'center'});d.text('p. TAPICERÍA "CLASE A1"',156,y+5,{align:'center'});
- d.setTextColor(120);d.text('Gracias por su preferencia',W/2,y+13,{align:'center'});
+ const r=S.rec,c=S.snap,d=new window.jspdf.jsPDF({unit:'mm',format:'a4'});
+ const NV=[30,58,138],LB=[219,234,254],DK=[15,23,42],RD=[220,38,38],WM=[226,232,244];
+ const shield=(x,y,k,col,lw,fs)=>{d.setDrawColor(...col);d.setTextColor(...col);d.setLineWidth(lw);d.lines([[8,3],[0,8],[-8,9],[-8,-9],[0,-8],[8,-3]].map(a=>[a[0]*k,a[1]*k]),x+8*k,y,[1,1],'S',true);d.setFont('helvetica','bold');d.setFontSize(fs);d.text('A1',x+8*k,y+12.6*k,{align:'center'})};
+ /* cabecera izquierda */
+ d.setTextColor(...NV);d.setFont('helvetica','bold');d.setFontSize(32);d.text('CLASE A1',14,26);
+ shield(14+d.getTextWidth('CLASE A1')+4,10.5,.85,NV,.8,9);
+ d.setTextColor(...DK);d.setFontSize(10);d.text('De: Ramos Gómez George',14,34);
+ d.setFont('helvetica','normal');d.setFontSize(8);d.text(d.splitTextToSize('Tapizamos todo tipo de vehículos y oficinas, motos, sillas, muebles, confección de carpa para instituciones, etc.',104),14,39);
+ d.setDrawColor(...NV);d.setLineWidth(.5);d.roundedRect(12,47,104,14,2,2,'S');
+ d.setFontSize(8);d.text('Av. Arenales N° 667 (Ref. Grifo Arenales) - Huamanga, Ayacucho',15,52.5);d.setFont('helvetica','bold');d.setFontSize(9.5);d.text('WhatsApp / Tel.: '+TEL,15,58);
+ /* cabecera derecha */
+ d.roundedRect(122,12,76,31,2,2,'S');d.setTextColor(...NV);d.setFontSize(10);d.text('R.U.C. '+RUC,160,19,{align:'center'});
+ d.setFontSize(11);d.text('NOTA DE PEDIDO',160,25.5,{align:'center'});d.text('PROFORMA',160,30.5,{align:'center'});
+ d.setTextColor(...RD);d.setFontSize(12);d.text('N° '+r.codigo_proforma,160,39,{align:'center'});
+ const dt=emitida(),dv=[String(dt.getDate()).padStart(2,'0'),String(dt.getMonth()+1).padStart(2,'0'),String(dt.getFullYear())];
+ ['DÍA','MES','AÑO'].forEach((h,i)=>{const x=122+i*76/3,w=76/3;d.setFillColor(...LB);d.setDrawColor(...NV);d.setLineWidth(.4);d.rect(x,47,w,6,'FD');d.rect(x,53,w,8,'S');d.setFont('helvetica','bold');d.setFontSize(8);d.setTextColor(...NV);d.text(h,x+w/2,51.2,{align:'center'});d.setFontSize(10);d.setTextColor(...DK);d.text(dv[i],x+w/2,58.6,{align:'center'})});
+ /* datos del cliente */
+ const fld=(x,y,w,l,v)=>{d.setFont('helvetica','bold');d.setFontSize(9);d.setTextColor(...NV);d.text(l,x,y);const lw=d.getTextWidth(l)+2;d.setFont('helvetica','normal');d.setFontSize(10);d.setTextColor(...DK);d.text(d.splitTextToSize(String(v||''),w-lw-1)[0]||'',x+lw,y);d.setDrawColor(...NV);d.setLineWidth(.3);d.line(x,y+1.6,x+w,y+1.6)};
+ fld(12,71,186,'Señor(es):',r.nombre_cliente);fld(12,80,90,'WhatsApp:',r.telefono_whatsapp);fld(108,80,90,'Color:',c.color);fld(12,89,186,'Vehículo:',c.veh);
+ /* tabla */
+ const X=[12,26,126,156,198],y0=95,rh=8.5,hh=7;
+ const rows=c.lines.map(l=>({n:l.n,t:l.desc,v:l.imp.toFixed(2),u:l.imp.toFixed(2)}));
+ if(c.exd||c.ex)rows.push({n:'',t:c.exd,v:c.ex?sgn(c.ex):'',u:''});
+ const R=Math.max(8,rows.length),H=hh+R*rh;
+ shield(81,y0+hh+(R*rh-60)/2,3,WM,2.2,88);
+ d.setFillColor(...LB);d.setDrawColor(...NV);d.setLineWidth(.5);d.rect(12,y0,186,hh,'FD');d.rect(12,y0,186,H,'S');
+ d.setLineWidth(.3);[1,2,3].forEach(i=>d.line(X[i],y0,X[i],y0+H));
+ for(let i=1;i<R;i++)d.line(12,y0+hh+i*rh,198,y0+hh+i*rh);
+ d.setFont('helvetica','bold');d.setFontSize(8.5);d.setTextColor(...NV);
+ [['CANT.',0],['DESCRIPCIÓN',1],['P. UNIT.',2],['IMPORTE',3]].forEach(([t,i])=>d.text(t,(X[i]+X[i+1])/2,y0+4.8,{align:'center'}));
+ rows.forEach((o,i)=>{const ry=y0+hh+i*rh;
+  if(o.n){d.setDrawColor(...DK);d.setLineWidth(.4);d.circle(X[0]+7,ry+rh/2,3,'S');d.setFont('helvetica','bold');d.setFontSize(9);d.setTextColor(...DK);d.text(String(o.n),X[0]+7,ry+rh/2+1.2,{align:'center'})}
+  d.setFont('helvetica','normal');d.setFontSize(8.5);d.setTextColor(...DK);
+  const t=d.splitTextToSize(o.t,X[2]-X[1]-4).slice(0,2);d.text(t,X[1]+2,t.length>1?ry+3.7:ry+5.4,{lineHeightFactor:1.1});
+  if(o.u)d.text(o.u,X[3]-2,ry+5.4,{align:'right'});d.text(o.v,X[4]-2,ry+5.4,{align:'right'})});
+ /* pie */
+ let y=y0+H+6;if(y>235){d.addPage();y=20}
+ const bx=(yy,l)=>{d.setDrawColor(...NV);d.setLineWidth(.5);d.roundedRect(12,yy,72,10,2,2,'S');d.setFont('helvetica','bold');d.setFontSize(9);d.setTextColor(...NV);d.text(l,15,yy+6.3)};
+ bx(y,'A CUENTA S/.');bx(y+13,'SALDO S/.');
+ d.setFillColor(...LB);d.setDrawColor(...NV);d.setLineWidth(.7);d.roundedRect(110,y,88,13,2,2,'FD');
+ d.setFont('helvetica','bold');d.setFontSize(11);d.setTextColor(...NV);d.text('TOTAL S/.',114,y+8.4);d.setFontSize(16);d.setTextColor(...DK);d.text(c.tot.toFixed(2),195,y+9,{align:'right'});
+ d.setFontSize(9);d.setTextColor(...NV);d.text('Gracias por su preferencia',198,y+19,{align:'right'});
+ y+=32;d.setFont('helvetica','normal');d.setFontSize(8.5);d.setTextColor(60,60,60);
+ const lg=d.splitTextToSize(LEGAL+' Válida hasta: '+fmt(vence())+'.',186);d.text(lg,12,y);y+=lg.length*4+4;
+ const rl=d.splitTextToSize(RECOJO,186);d.text(rl,12,y);y+=rl.length*4+4;
+ y=Math.max(y+20,262);if(y>284){d.addPage();y=40}
+ d.setDrawColor(...NV);d.setLineWidth(.4);d.line(20,y,90,y);d.line(120,y,190,y);
+ d.setFont('helvetica','bold');d.setFontSize(9);d.setTextColor(...NV);d.text('p. CLIENTE',55,y+5,{align:'center'});d.text('p. TAPICERÍA "CLASE A1"',155,y+5,{align:'center'});
  d.save(r.codigo_proforma+'.pdf');
 }
 
@@ -394,7 +464,6 @@ const FAQ=[
  {q:'Ubicación y horario',k:'ubicacion horario direccion donde hora atienden abren llegar arenales grifo',a:()=>'Estamos en Av. Arenales N° 667 (Ref. Grifo Arenales), Huamanga, Ayacucho. Horario referencial: Lun–Sáb 8:00 a.m. – 6:00 p.m. Confírmelo por WhatsApp.'},
  {q:'Materiales',k:'material materiales aneka taneka multitop prana tacto cueromax cuero chispa vinil tela drive tapimax calidad',a:()=>'Trabajamos Aneka/Taneka MultiTop (cuerina lisa e impermeable), Prana (texturizado grueso para camionetas), Tacto Cuero Cueromax (suave tipo cuero), Piso Chispa (antideslizante para pisos) y Tela Drive/Tapimax.'},
  {q:'Tiempo de entrega',k:'tiempo demora tarda dias cuanto entrega listo plazo',a:()=>{const l=S.servs.filter(s=>s.tiempo_estimado_dias).map(s=>`${s.nombre}: ≈ ${s.tiempo_estimado_dias} día(s)`);return (l.length?l.join('. ')+'. ':'')+'El plazo final se confirma tras la inspección del vehículo.'}},
- {q:'Descuentos por paquete',k:'descuento paquete oferta promocion integral rebaja',a:()=>`Al marcar ${DESC_MIN} o más servicios, el cotizador aplica ${DESC_PCT}% de descuento por paquete automáticamente.`},
  {q:'Cómo reservar cita',k:'reservar cita agendar reserva separar turno',a:()=>'Genere su proforma, envíela por WhatsApp y coordinamos su cita en el taller para la inspección. La proforma vale 3 días calendario.'}];
 function say(q,a){const l=$('chat-log');l.insertAdjacentHTML('beforeend',`<div class="text-right"><span class="inline-block bg-[#D4AF37]/30 rounded p-2">${esc(q)}</span></div><div class="bg-slate-100 rounded p-2">${esc(a)}</div>`);l.scrollTop=l.scrollHeight;$('chat-wa').href=`https://wa.me/${WA}?text=${encodeURIComponent('Hola, tengo una consulta: '+q)}`}
 $('chat-faq').innerHTML=FAQ.map((f,i)=>`<button onclick="say(FAQ[${i}].q,FAQ[${i}].a())" class="text-xs border rounded-full px-3 py-2 bg-white">${f.q}</button>`).join('');
@@ -402,6 +471,71 @@ function buscar(ev){ev.preventDefault();const q=$('chat-q').value.trim();if(!q)r
  const f=FAQ.find(f=>w.some(x=>norm(f.k).split(' ').some(k=>k.startsWith(x)||x.startsWith(k))));
  say(q,f?f.a():'No encontré esa consulta. Escríbanos por WhatsApp y le respondemos.');$('chat-q').value='';return false}
 $('chat-wa').href=`https://wa.me/${WA}`;
+
+/* ===== TALONARIO + IMPRESIÓN LOCAL (window.print) ===== */
+const LS={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+function note(t,c){const e=$('msg');e.textContent=t;e.className='text-sm text-center '+c}
+const SHIELD='<svg viewBox="0 0 100 120" fill="none"><path d="M50 4L92 18V62Q92 98 50 116Q8 98 8 62V18Z" stroke="currentColor" stroke-width="6"/><text x="50" y="80" text-anchor="middle" font-size="54" font-weight="700" font-family="Oswald,Impact,sans-serif" fill="currentColor">A1</text></svg>';
+const PG={a4:{w:794,h:1123,m:45,page:'A4',mm:'12mm',rows:8,lbl:'Hoja A4 · 210×297 mm'},a5:{w:559,h:794,m:30,page:'A5',mm:'8mm',rows:6,lbl:'Media Hoja A5 · 148×210 mm'},t80:{w:302,h:0,m:11,page:'80mm auto',mm:'3mm',rows:3,lbl:'Ticket térmico · 80 mm'}};
+function tlHTML(k,ed){
+ const f=!!(S.rec&&S.snap),c=f?S.snap:calc(),d=f?emitida():new Date();
+ const nom=f?S.rec.nombre_cliente:$('nombre').value.trim(),w=f?S.rec.telefono_whatsapp:$('wsp').value,col=f?S.snap.color:$('color').value.trim();
+ const cod=f?S.rec.codigo_proforma:'PROF-2026-XXXX',pad=n=>String(n).padStart(2,'0');
+ const rows=c.lines.map(l=>{const v=l.imp==null?'':l.imp.toFixed(2);return `<tr><td class="cn"><span class="ci">${l.n}</span></td><td>${esc(l.desc)}</td><td class="r">${v}</td><td class="r">${v}</td></tr>`});
+ rows.push(ed?`<tr><td></td><td><input id="ex-d" class="tl-in" value="${esc(S.ex.d)}" maxlength="60" autocomplete="off"></td><td></td><td class="r"><input id="ex-a" class="tl-in r" value="${esc(S.ex.a)}" maxlength="10" inputmode="decimal" autocomplete="off"></td></tr>`:`<tr><td></td><td>${esc(c.exd)}</td><td></td><td class="r">${c.ex?sgn(c.ex):''}</td></tr>`);
+ while(rows.length<PG[k].rows)rows.push('<tr><td></td><td></td><td></td><td></td></tr>');
+ return `<div class="tl ${k}">
+<div class="tl-h"><div>
+ <div class="tl-brand"><span class="tl-name">CLASE A1</span><span class="tl-sh">${SHIELD}</span></div>
+ <div class="b">De: Ramos Gómez George</div>
+ <div class="sm">Tapizamos todo tipo de vehículos y oficinas, motos, sillas, muebles, confección de carpa para instituciones, etc.</div>
+ <div class="tl-box sm">Av. Arenales N° 667 (Ref. Grifo Arenales) · Huamanga, Ayacucho<br><b>WhatsApp / Tel.: ${TEL}</b></div>
+</div><div>
+ <div class="tl-box c" style="margin-top:0"><div class="b">R.U.C. ${RUC}</div><div class="b" style="line-height:1.15">NOTA DE PEDIDO<br>PROFORMA</div><div class="red">N° ${esc(cod)}</div></div>
+ <table class="tl-date"><tr><th>DÍA</th><th>MES</th><th>AÑO</th></tr><tr><td>${pad(d.getDate())}</td><td>${pad(d.getMonth()+1)}</td><td>${d.getFullYear()}</td></tr></table>
+</div></div>
+<div class="tl-f"><b>Señor(es):</b><span class="v">${esc(nom)}</span></div>
+<div class="tl-f2"><div class="tl-f"><b>WhatsApp:</b><span class="v">${esc(w)}</span></div><div class="tl-f"><b>Color:</b><span class="v">${esc(col)}</span></div></div>
+<div class="tl-f"><b>Vehículo:</b><span class="v">${esc(f?S.snap.veh:veh()).replace('—','')}</span></div>
+<div class="tl-tw"><div class="tl-wm">${SHIELD}</div><table class="tl-t"><thead><tr><th style="width:11%">CANT.</th><th>DESCRIPCIÓN</th><th style="width:17%">P. UNIT.</th><th style="width:19%">IMPORTE</th></tr></thead><tbody>${rows.join('')}</tbody></table></div>
+<div class="tl-ft"><div><div class="tl-box2">A CUENTA S/.</div><div class="tl-box2">SALDO S/.</div></div><div><div class="tl-total"><span style="font-size:1em;color:inherit">TOTAL S/.</span><span>${c.tot.toFixed(2)}</span></div><div class="tl-gr">Gracias por su preferencia</div></div></div>
+<div class="sm legal">${LEGAL} Válida hasta: ${fmt(vence())}.</div>
+<div class="sm legal">${RECOJO}</div>
+<div class="tl-sig"><div>p. CLIENTE</div><div>p. TAPICERÍA "CLASE A1"</div></div>
+</div>`;
+}
+function renderTalonario(){
+ const k=$('paper').value,a=document.activeElement,fid=a&&a.id,pos=a&&a.selectionStart;
+ $('talonario').innerHTML=tlHTML(k,!S.rec);$('ticket-impresion').innerHTML=tlHTML(k,false);
+ if(fid=='ex-d'||fid=='ex-a'){const n=$(fid);if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}}}
+ if(!$('cfg').classList.contains('hidden'))renderMini();
+}
+$('talonario').addEventListener('input',e=>{
+ const t=e.target;
+ if(t.id=='ex-a'){let v=t.value.replace(/[^0-9.\-]/g,'');v=(v[0]=='-'?'-':'')+v.replace(/-/g,'');const q=v.indexOf('.');if(q>=0)v=v.slice(0,q+1)+v.slice(q+1).replace(/\./g,'');v=v.replace(/(\.\d{2})\d+/,'$1');if(v!==t.value)t.value=v;S.ex.a=v}
+ else if(t.id=='ex-d')S.ex.d=t.value;else return;
+ update();
+});
+function renderMini(){
+ const k=$('paper').value,g=PG[k],s=160/794;
+ $('mini').innerHTML=`<div id="mini-w" style="width:${g.w*s}px;overflow:hidden;background:#fff;box-shadow:0 1px 5px #0004"><div id="mini-i" style="width:${g.w}px;padding:${g.m}px;box-sizing:border-box;transform:scale(${s});transform-origin:0 0"><div class="tlw">${tlHTML(k)}</div></div></div><div class="text-[11px] text-slate-600 mt-1">${g.lbl}</div>`;
+ $('mini-w').style.height=((g.h||$('mini-i').offsetHeight)*s)+'px';
+}
+function applyPaper(){
+ const k=$('paper').value,g=PG[k];
+ $('print-css').textContent=`@page{size:${g.page};margin:${g.mm}}@media print{#ticket-impresion{width:${k=='t80'?'74mm':'100%'}}}`;
+ renderTalonario();
+}
+function toggleCfg(){const p=$('cfg');p.classList.toggle('hidden');if(!p.classList.contains('hidden'))renderMini()}
+function printTicket(){
+ const c=S.rec&&S.snap?S.snap:calc();
+ if(!c.lines.length){note('Elija al menos un servicio para imprimir.','text-red-600');return}
+ renderTalonario();window.print();
+}
+const sp=LS.get('paper');$('paper').value=PG[sp]?sp:'a4';$('autoprint').checked=LS.get('autoPrint')=='1';
+$('paper').onchange=()=>{LS.set('paper',$('paper').value);applyPaper()};
+$('autoprint').onchange=e=>LS.set('autoPrint',e.target.checked?'1':'0');
+applyPaper();addEventListener('beforeprint',renderTalonario);
 
 load();
 </script>
